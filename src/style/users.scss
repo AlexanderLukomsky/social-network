@@ -1,0 +1,28 @@
+.users {
+    &__selected {
+        font-weight: 700;
+        color: red;
+        background: yellow;
+    }
+    &__list_pages {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        max-width: 200px;
+        padding: 10px;
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            padding: 5px;
+            font-size: 20px;
+            border: 2px solid black;
+            border-radius: 50%;
+            &:hover {
+                border-color: goldenrod;
+            }
+        }
+    }
+}
