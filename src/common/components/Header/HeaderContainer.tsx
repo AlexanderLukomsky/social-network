@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logoutThunk } from "../../../redux/auth-reducer";
+import { logoutThunk } from "../../../features/Login/auth-reducer";
 import { AppStateType, useAppDispatch } from "../../../redux/redux-store";
 import { AuthStateType } from "../../types/StateType";
 import { Header } from "./Header";

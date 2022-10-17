@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { authAPI } from "../../API/api";
-import { authThunkCreator } from "../../redux/auth-reducer";
+import { authThunkCreator } from "./auth-reducer";
 import { useAppDispatch } from "../../redux/redux-store";
-import { LoginForm } from "./LoginForm"
+import { LoginForm } from "./LoginForm/LoginForm"
 
 export const LoginPage = () => {
     const [authMe, setAuthMe] = useState(false)

@@ -1,4 +1,4 @@
-import { ProfileAPI } from '../API/api';
+import { ProfileAPI } from '../../API/api';
 type SetProfileStatusACType = ReturnType<typeof setProfileStatusAC>
 type ProfileStatusActionType = SetProfileStatusACType
 export type ProfileStatusType = typeof initialState

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
-import { followThunkCreator, getUsersThunkCreator, toggleFollowingProgressAC, unfollowThunkCreator } from "../../redux/user-reducer";
-import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../redux/users-selectors";
+import { followThunkCreator, getUsersThunkCreator, toggleFollowingProgressAC, unfollowThunkCreator } from "./user-reducer";
+import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../common/selectors/selectors";
 import { UsersAPIComponent } from "./UsersAPIComponent";
 const MapStateToProps = (state: AppStateType) => {
     return {

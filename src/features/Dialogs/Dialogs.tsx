@@ -1,8 +1,8 @@
 import { DialogsPageType } from "../../common/types/StateType"
-import { AddMessageForm } from "./AddMessageForm"
+import { AddMessageForm } from "./AddMessageForm/AddMessageForm"
 import { DialogItem } from "./DialogItem/DialogItem"
 import { DialogMessage } from "./DialogMessage/DialogMessage"
-import { addMessageAC } from '../../redux/dialogs-reducer'
+import { addMessageAC } from './dialogs-reducer'
 import { useAppSelector } from "../../redux/redux-store"
 
 

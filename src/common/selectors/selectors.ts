@@ -1,4 +1,4 @@
-import { AppStateType } from './redux-store';
+import { AppStateType } from '../../redux/redux-store';
 export const getUsers = (state: AppStateType) => (state.usersPage.users)
 export const getPageSize = (state: AppStateType) => (state.usersPage.pageSize)
 export const getTotalUsersCount = (state: AppStateType) => (state.usersPage.totalUsersCount)

@@ -2,12 +2,12 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { combineReducers } from "redux";
-import { AuthActionType, authReducer } from './auth-reducer';
-import { DialogsActionType, dialogsReducer } from './dialogs-reducer';
-import { ProfileActionType, profileReducer } from './profile-reducer';
-import { profileStatusReducer } from './profileStatus-reducer';
-import { sidebarReducer } from './sidebar-reducer';
-import { UsersPageActionType, usersReducer } from './user-reducer';
+import { AuthActionType, authReducer } from '../features/Login/auth-reducer';
+import { DialogsActionType, dialogsReducer } from '../features/Dialogs/dialogs-reducer';
+import { ProfileActionType, profileReducer } from '../features/Profile/profile-reducer';
+import { profileStatusReducer } from '../features/Profile/profileStatus-reducer';
+import { sidebarReducer } from '../features/Sidebar/sidebar-reducer';
+import { UsersPageActionType, usersReducer } from '../features/Users/user-reducer';
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,

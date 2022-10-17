@@ -1,5 +1,5 @@
-import { usersAPI } from "../API/api"
-import { UsersForUserPageType, UsersPageType } from "../common/types/StateType"
+import { usersAPI } from "../../API/api"
+import { UsersForUserPageType, UsersPageType } from "../../common/types/StateType"
 const initialState: UsersPageType = {
     users: [
 

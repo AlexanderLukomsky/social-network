@@ -1,6 +1,6 @@
 import { Field, Form } from "react-final-form"
-import { Textarea } from "../../common/components/FormsControls/FormsControls"
-import { maxLengthCreator, requiredField } from "../../common/utils/validators/validator"
+import { Textarea } from "../../../common/components/FormsControls/FormsControls"
+import { maxLengthCreator, requiredField } from "../../../common/utils/validators/validator"
 type FormDataType = {
     newMessageBody: string
 }

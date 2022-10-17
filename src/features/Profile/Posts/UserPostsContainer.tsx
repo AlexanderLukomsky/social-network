@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { addPostAC } from "../../../redux/profile-reducer"
+import { addPostAC } from "../profile-reducer"
 import { ActionType, AppStateType } from "../../../redux/redux-store"
 import { UserPosts } from "./UserPosts"
 

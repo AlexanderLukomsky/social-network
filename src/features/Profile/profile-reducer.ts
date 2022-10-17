@@ -1,8 +1,8 @@
-import { ActionType } from './redux-store';
-import { ProfileType } from '../common/types/StateType';
+import { ActionType } from '../../redux/redux-store';
+import { ProfileType } from '../../common/types/StateType';
 import { v1 } from 'uuid';
-import { ProfilePageType } from '../common/types/StateType';
-import { usersAPI } from '../API/api';
+import { ProfilePageType } from '../../common/types/StateType';
+import { usersAPI } from '../../API/api';
 type AddPostACType = ReturnType<typeof addPostAC>
 type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export type ProfileActionType = AddPostACType | SetUserProfileACType

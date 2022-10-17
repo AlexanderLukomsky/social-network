@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { HeaderContainer } from './common/components/Header/HeaderContainer';
 import { LoginPage } from './features/Login/Login';
 import { UsersContainer } from './features/Users/UsersContainer';
-import { authThunkCreator } from './redux/auth-reducer';
+import { authThunkCreator } from './features/Login/auth-reducer';
 import { useAppDispatch } from './redux/redux-store';
 import { Dialogs } from './features/Dialogs/Dialogs';
 import { Profile } from './features/Profile/Profile';

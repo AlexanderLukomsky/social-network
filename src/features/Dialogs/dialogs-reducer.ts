@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { DialogsPageType } from "../common/types/StateType";
+import { DialogsPageType } from "../../common/types/StateType";
 type AddMessageACType = ReturnType<typeof addMessageAC>
 export type DialogsActionType = AddMessageACType
 const dialogsPage: DialogsPageType = {
