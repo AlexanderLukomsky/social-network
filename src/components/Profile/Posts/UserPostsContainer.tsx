@@ -5,17 +5,17 @@ import { UserPosts } from "./UserPosts"
 
 
 const MapStateToProps = (state: AppStateType) => {
-    return {
-        profilePage: state.profilePage,
-        isAuth: state.auth.isAuth
-    }
+   return {
+      profilePage: state.profilePage,
+      isAuth: state.auth.isAuth
+   }
 }
 const MapDispatchToProps = (dispatch: (action: ActionType) => void) => {
-    return {
-        addNewPost: (newPostText: string) => {
-            dispatch(addPostAC(newPostText))
-        }
-    }
+   return {
+      addNewPost: (newPostText: string) => {
+         dispatch(addPostAC(newPostText))
+      }
+   }
 }
 export const UserPostsContainer = connect(MapStateToProps, MapDispatchToProps)(UserPosts)
 
