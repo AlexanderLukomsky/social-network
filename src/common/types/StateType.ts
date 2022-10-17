@@ -20,7 +20,7 @@ export type StateType = {
     usersPage: UsersPageType
 }
 
-export type UsersForUserPageType = {
+export type UsersDataType = {
     followed: boolean
     id: number
     name: string
@@ -29,7 +29,7 @@ export type UsersForUserPageType = {
     uniqueUrlName: null
 }
 export type UsersPageType = {
-    users: UsersForUserPageType[]
+    data: UsersDataType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number

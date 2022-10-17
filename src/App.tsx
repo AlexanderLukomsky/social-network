@@ -6,13 +6,13 @@ import { Settings } from './features/Settings/Settings';
 import { Sidebar } from './features/Sidebar/Sidebar';
 import { useEffect } from 'react';
 import { LoginPage } from './features/Login/Login';
-import { UsersContainer } from './features/Users/UsersContainer';
 import { authThunk } from './features/Login/auth-reducer';
 import { useAppDispatch } from './redux/redux-store';
 import { Dialogs } from './features/Dialogs/Dialogs';
 import { Profile } from './features/Profile/Profile';
 import { Header } from './common/components/Header/Header';
 import './common/style/app.scss'
+import { Users } from './features/Users/Users';
 export function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -28,7 +28,7 @@ export function App() {
             <Route path='/profile/:userId' element={<Profile />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/dialogs' element={<Dialogs />} />
-            <Route path='/users' element={<UsersContainer />} />
+            <Route path='/users' element={<Users />} />
             <Route path='/news' element={<News />} />
             <Route path='/music' element={<Music />} />
             <Route path='/settings' element={<Settings />} />

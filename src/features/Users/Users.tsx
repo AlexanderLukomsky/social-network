@@ -1,41 +1,51 @@
-import { FC } from 'react'
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import usersDefaultPhoto from '../../assets/usersImg.jpg';
-import { UsersForUserPageType } from '../../common/types/StateType';
+import { selectUsers } from '../../common/selectors/selectors';
+import { useAppDispatch } from '../../redux/redux-store';
+import { followThunkCreator, getUsersThunkCreator, unfollowThunkCreator } from './user-reducer';
 
-export const Users: FC<UsersPropsType> = (props) => {
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+export const Users = () => {
+    const dispatch = useAppDispatch()
+    const users = useSelector(selectUsers)
+    let pagesCount = Math.ceil(users.totalUsersCount / users.pageSize)
     let pagesCountArr: number[] = []
     for (let page = 1; page <= pagesCount; page++) {
         pagesCountArr = [...pagesCountArr, page]
     }
-
-
-
-
     const unfollow = (userID: number) => {
-        props.unfollowThunkCreator(userID)
+        unfollowThunkCreator(userID)
     }
     const follow = (userID: number) => {
-        props.followThunkCreator(userID)
+        followThunkCreator(userID)
     }
+
+    const changeCurrentPage = (page: number) => {
+        getUsersThunkCreator(page, users.pageSize)
+    }
+
+    useEffect(() => {
+        dispatch(getUsersThunkCreator(users.currentPage, users.pageSize))
+    }, [])
+    console.log(users.data)
     return (
         <div className="users">
             <ul className="users__list_pages">
-                {props.currentPage !== 1 && <li onClick={() => { props.changeCurrentPage(1) }}>
+                {users.currentPage !== 1 && <li onClick={() => { changeCurrentPage(1) }}>
                     1
                 </li>}
                 {
                     pagesCountArr.splice(
-                        props.currentPage - 1, props.currentPage + 8 - props.currentPage
+                        users.currentPage - 1, users.currentPage + 8 - users.currentPage
                     ).map((p, i) =>
-                        <li key={i} className={p === props.currentPage ? 'users__selected' : ''}
-                            onClick={() => { props.changeCurrentPage(p) }} >
+                        <li key={i} className={p === users.currentPage ? 'users__selected' : ''}
+                            onClick={() => { changeCurrentPage(p) }} >
                             {p}
                         </li>
                     )}
             </ul>
-            {props.users.map(u =>
+            {users.data.map(u =>
                 <div key={u.id}>
                     <div>
                         <NavLink to={`/profile/${u.id}`}><img src={u.photos.small || u.photos.small ? u.photos.small || u.photos.small : usersDefaultPhoto} alt="description" /></NavLink>
@@ -43,21 +53,11 @@ export const Users: FC<UsersPropsType> = (props) => {
                     {u.name}
                     {
                         u.followed ?
-                            <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => unfollow(u.id)}>Unfollow</button> :
-                            <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => follow(u.id)}>Follow</button>
+                            <button disabled={users.followingInProgress.some(id => id === u.id)} onClick={() => unfollow(u.id)}>Unfollow</button> :
+                            <button disabled={users.followingInProgress.some(id => id === u.id)} onClick={() => follow(u.id)}>Follow</button>
                     }
 
                 </div>)}
         </div>
     )
-}
-type UsersPropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    users: UsersForUserPageType[]
-    changeCurrentPage: (currentPage: number) => void
-    unfollowThunkCreator: (id: number) => void
-    followThunkCreator: (id: number) => void
-    followingInProgress: number[]
 }

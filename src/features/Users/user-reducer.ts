@@ -1,8 +1,7 @@
 import { usersAPI } from "../../api/userApi"
-import { UsersForUserPageType, UsersPageType } from "../../common/types/StateType"
+import { UsersDataType, UsersPageType } from "../../common/types/StateType"
 const initialState: UsersPageType = {
-    users: [
-
+    data: [
     ],
     pageSize: 5,
     totalUsersCount: 0,
@@ -23,9 +22,9 @@ export type UsersPageActionType = SetUsersACType | FollowACType | UnfollowACType
 
 export const usersReducer = (state: UsersPageType = initialState, action: UsersPageActionType) => {
     switch (action.type) {
-        case 'FOLLOW': return { ...state, users: state.users.map(u => u.id === action.payload.userID ? { ...u, followed: true } : u) }
-        case 'UNFOLLOW': return { ...state, users: state.users.map(u => u.id === action.payload.userID ? { ...u, followed: false } : u) }
-        case 'SET-USERS': return { ...state, users: [...action.payload.users] }
+        case 'FOLLOW': return { ...state, users: state.data.map(u => u.id === action.payload.userID ? { ...u, followed: true } : u) }
+        case 'UNFOLLOW': return { ...state, users: state.data.map(u => u.id === action.payload.userID ? { ...u, followed: false } : u) }
+        case 'SET-USERS': return { ...state, data: [...action.payload.users] }
         case 'CHANGE-CURRENT-PAGE': return { ...state, currentPage: action.payload.currentPage }
         case 'SET-TOTAL-COUNT': return { ...state, totalUsersCount: action.totalCount }
         case 'TOGGLE-IS-FETCHING': return { ...state, isFetching: action.payload.isFetching }
@@ -40,7 +39,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: UsersP
 
 
 //*
-export const setUsersAC = (users: UsersForUserPageType[]) => {
+export const setUsersAC = (users: UsersDataType[]) => {
     return {
         type: 'SET-USERS',
         payload: { users }

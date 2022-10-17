@@ -10,7 +10,7 @@ import { usersReducer } from '../features/Users/user-reducer';
 const rootReducer = combineReducers({
     profile: profileReducer,
     dialogsPage: dialogsReducer,
-    usersPage: usersReducer,
+    users: usersReducer,
     auth: authReducer,
     profilestatus: profileStatusReducer,
 })
