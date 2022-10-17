@@ -1,11 +1,9 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v1 } from 'uuid';
 import { usersAPI } from '../../api/api';
-import { ProfilePageType, ProfileType } from '../../common/types/StateType';
-type AddPostACType = ReturnType<typeof addPostAC>
-type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
-export type ProfileActionType = AddPostACType | SetUserProfileACType
-const profilePage: ProfilePageType = {
-    profile: null,
+import { ProfileType } from '../../common/types/StateType';
+const initialState = {
+    profile: null as null | ProfileType,
     posts: [
         { id: v1(), message: 'message-1', likesCount: 5 },
         { id: v1(), message: 'message-2', likesCount: 8 },
@@ -14,27 +12,26 @@ const profilePage: ProfilePageType = {
         { id: v1(), message: 'message-5', likesCount: 17 },
     ],
 }
-export const profileReducer = (state: ProfilePageType = profilePage, action: ProfileActionType) => {
-    switch (action.type) {
-        case 'ADD-POST':
-            return { ...state, posts: [{ id: v1(), message: action.payload.newPostText, likesCount: 1 }, ...state.posts] }
-        case 'SET-USER-PROFILE': return { ...state, profile: action.profile }
-        default: return state
+const slice = createSlice({
+    name: 'profile',
+    initialState,
+    reducers: {
+        addNewPost: (state, action: PayloadAction<string>) => {
+            state.posts.unshift({ id: v1(), message: action.payload, likesCount: 0 })
+        },
+        deletePost: (state, action: PayloadAction<string>) => {
+            state.posts = state.posts.filter(el => el.id !== action.payload)
+        },
+        setUserProfile: (state, action: PayloadAction<{ profile: ProfileType }>) => {
+            state.profile = action.payload.profile
+        }
     }
-}
-export const addPostAC = (newPostText: string) => {
-    return {
-        type: 'ADD-POST',
-        payload: { newPostText }
-    } as const
-}
-export const setUserProfileAC = (profile: ProfileType) => {
-    return {
-        type: 'SET-USER-PROFILE',
-        profile
-    } as const
-}
-export const setUserProfileThunkCreator = (userId: string = '19615') => (dispatch: (action: ProfileActionType) => void) => {
+})
+export const profileReducer = slice.reducer
+export const { addNewPost, deletePost, setUserProfile } = slice.actions
+export const setUserProfileThunkCreator = (userId: string = '19615') => (dispatch: (action: ReturnType<typeof setUserProfile>) => void) => {
     usersAPI.getUserProfile(userId)
-        .then(data => dispatch(setUserProfileAC(data.data)))
+        .then(data => {
+            dispatch(setUserProfile({ profile: data.data }))
+        })
 }

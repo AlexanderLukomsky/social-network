@@ -1,3 +1,4 @@
+import { ProfileType } from './../common/types/StateType';
 import { instance } from "./instance"
 
 export const usersAPI = {
@@ -27,11 +28,13 @@ export const authAPI = {
     },
 }
 export const ProfileAPI = {
+
     getUserProfile(userId: string) {
-        return instance.get(`${userId ? userId : '19615'}`)
+        return instance.get(`profile/${userId ? userId : '19615'}`)
     },
+
     getStatus(userID: string) {
-        return instance.get(`status/${userID}`)
+        return instance.get(`profile/status/${userID}`)
     },
     updateStatus(status: string) {
         return instance.put<{

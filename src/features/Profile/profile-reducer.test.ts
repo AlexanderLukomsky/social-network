@@ -1,42 +1,27 @@
-import { v1 } from 'uuid';
-import { authReducer } from '../Login/auth-reducer';
-import { profileReducer } from '../Profile/profile-reducer';
-// import { v1 } from "uuid"
-// import { ProfilePageType } from "../../common/types/StateType"
-// import { profileReducer } from "./profile-reducer"
-// let initState = {
-//    profile: null,
-//    posts: [{ id: v1(), message: 'message-1', likesCount: 5 }]
-// }
-// const ADD_POST: 'ADD-POST' = 'ADD-POST'
-// beforeEach(() => {
-//    initState = {
-//       profile: null,
-//       posts: [
-//          { id: v1(), message: 'message-1', likesCount: 5 },
-//          { id: v1(), message: 'message-2', likesCount: 8 },
-//          { id: v1(), message: 'message-3', likesCount: 11 },
-//          { id: v1(), message: 'message-4', likesCount: 14 },
-//          { id: v1(), message: 'message-5', likesCount: 17 },
-//       ],
-//    }
-// })
-// test('new post should be added', () => {
-//    const action = { type: ADD_POST, payload: { newPostText: 'its test text' } }
-//    const newPost = profileReducer(initState, action)
-
-//    newPost.posts.length === 5
-//})
-
-test('should first', () => {
-   let initState = {
+import { ProfilePageType } from '../../common/types/StateType';
+import { addNewPost, deletePost, profileReducer } from '../Profile/profile-reducer';
+let initState = {} as ProfilePageType
+beforeEach(() => {
+   initState = {
       profile: null,
-      posts: [{ id: v1(), message: 'message-1', likesCount: 5 }]
-
+      posts: [
+         { id: 'first', message: 'message-1', likesCount: 5 },
+         { id: 'second', message: 'message-2', likesCount: 8 },
+         { id: 'third', message: 'message-3', likesCount: 11 }
+      ],
    }
-   const action = { type: 'ADD-POST' as const, payload: { newPostText: 'its test text' } }
-   const newPost = profileReducer(initState, action)
-   expect(newPost.posts.length).toBe(2)
+})
+test('message of new post should be correct', () => {
+   const newPost = profileReducer(initState, addNewPost('its test text'))
    expect(newPost.posts[0].message).toBe('its test text')
-
+})
+test('post length should be increment', () => {
+   const newPost = profileReducer(initState, addNewPost('its test text'))
+   expect(newPost.posts.length).toBe(4)
+})
+test('correct post should be deleted', () => {
+   const newPost = profileReducer(initState, deletePost('first'))
+   expect(newPost.posts.length).toBe(2)
+   expect(newPost.posts[0].message).toBe('message-2')
+   expect(newPost.posts[1].message).toBe('message-3')
 })
