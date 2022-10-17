@@ -1,12 +1,9 @@
+import { FC } from 'react'
 import { Preloader } from "../../../common/components/Preloader"
 import { ProfileType } from "../../../common/types/StateType"
 import { ProfileStatus } from "../ProfileStatus/ProfileStatus"
 
-type ProfileInfoType = {
-    profile: ProfileType
-    updateStatus: (status: string) => void
-}
-export const ProfileInfo = ({ profile, ...props }: ProfileInfoType) => {
+export const ProfileInfo: FC<ProfileInfoPropsType> = ({ profile, updateStatus }) => {
     if (!profile) return <Preloader />
     return (
         <div className="profile__header">
@@ -15,9 +12,13 @@ export const ProfileInfo = ({ profile, ...props }: ProfileInfoType) => {
             </div>
             <div className="profile__about">
                 <p className="profile__about-title">{profile.fullName}</p>
-                <ProfileStatus updateStatus={props.updateStatus} />
+                <ProfileStatus updateStatus={updateStatus} />
                 <p>{profile.aboutMe}</p>
             </div>
         </div>
     )
+}
+type ProfileInfoPropsType = {
+    profile: ProfileType | null
+    updateStatus: (status: string) => void
 }

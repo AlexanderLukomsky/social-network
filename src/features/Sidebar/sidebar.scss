@@ -1,0 +1,13 @@
+.sidebar {
+   display: flex;
+   justify-content: center;
+   padding: 10px;
+   .nav-list {
+      &__item {
+         margin-bottom: 20px;
+         .MuiButtonBase-root {
+            width: 100%;
+         }
+      }
+   }
+}

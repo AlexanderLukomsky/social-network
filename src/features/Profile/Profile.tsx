@@ -1,25 +1,28 @@
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { selectProfile } from '../../common/selectors/selectors'
+import { useAppDispatch } from '../../redux/redux-store'
+import { Posts } from './Posts/Posts'
 import { setUserProfileThunkCreator } from './profile-reducer'
-import { updateProfileStatusThunk } from './profileStatus-reducer'
-import { useAppDispatch, useAppSelector } from '../../redux/redux-store'
-import { ProfileType } from '../../common/types/StateType'
-import { UserPostsContainer } from './Posts/UserPostsContainer'
 import { ProfileInfo } from './ProfileInfo/ProfileInfo'
+import { updateProfileStatusThunk } from './profileStatus-reducer'
 
 export const Profile = () => {
-    const profile = useAppSelector(state => state.profilePage.profile)
+
+    const profile = useSelector(selectProfile)
     const dispatch = useAppDispatch()
     const { userId } = useParams<{ userId: string }>()
 
     useEffect(() => {
         dispatch(setUserProfileThunkCreator(userId))
     }, [userId])
+
     if (!profile) { return <div></div> }
     return (
         <div className='profile'>
-            <ProfileInfo profile={profile} updateStatus={updateProfileStatusThunk} />
-            <UserPostsContainer />
+            <ProfileInfo profile={profile.profile} updateStatus={updateProfileStatusThunk} />
+            <Posts />
 
         </div>
     )

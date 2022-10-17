@@ -10,3 +10,4 @@ export const getFollowingInProgress = (state: AppStateType) => (state.usersPage.
 
 
 export const selectAuth = (state: AppRootStoreType) => state.auth
+export const selectProfile = (state: AppRootStoreType) => state.profile

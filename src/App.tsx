@@ -22,9 +22,7 @@ export function App() {
     <div className="App">
       <div className='app-wrapper'>
         <Header />
-        <nav className='sidebar'>
-          <Sidebar />
-        </nav>
+        <Sidebar />
         <div className='body'>
           <Routes>
             <Route path='/profile/:userId' element={<Profile />} />
