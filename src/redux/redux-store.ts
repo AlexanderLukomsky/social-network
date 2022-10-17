@@ -6,7 +6,7 @@ import { dialogsReducer } from '../features/Dialogs/dialogs-reducer';
 import { authReducer } from '../features/Login/auth-reducer';
 import { profileReducer } from '../features/Profile/profile-reducer';
 import { profileStatusReducer } from '../features/Profile/profileStatus-reducer';
-import { usersReducer } from '../features/Users/user-reducer';
+import { usersReducer } from '../features/users/user-reducer';
 const rootReducer = combineReducers({
     profile: profileReducer,
     dialogsPage: dialogsReducer,

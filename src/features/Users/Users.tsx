@@ -4,7 +4,8 @@ import { NavLink } from 'react-router-dom';
 import usersDefaultPhoto from '../../assets/usersImg.jpg';
 import { selectUsers } from '../../common/selectors/selectors';
 import { useAppDispatch } from '../../redux/redux-store';
-import { followThunkCreator, getUsersThunkCreator, unfollowThunkCreator } from './user-reducer';
+import { followThunkCreator, getUsersThunk, unfollowThunkCreator } from './user-reducer';
+import { UsersPagination } from './usersPagination/UsersPagination';
 
 export const Users = () => {
     const dispatch = useAppDispatch()
@@ -22,15 +23,15 @@ export const Users = () => {
     }
 
     const changeCurrentPage = (page: number) => {
-        getUsersThunkCreator(page, users.pageSize)
+        getUsersThunk()
     }
 
     useEffect(() => {
-        dispatch(getUsersThunkCreator(users.currentPage, users.pageSize))
+        dispatch(getUsersThunk())
     }, [])
-    console.log(users.data)
     return (
         <div className="users">
+            <UsersPagination />
             <ul className="users__list_pages">
                 {users.currentPage !== 1 && <li onClick={() => { changeCurrentPage(1) }}>
                     1

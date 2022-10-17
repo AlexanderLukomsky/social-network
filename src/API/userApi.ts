@@ -2,8 +2,8 @@ import { instance } from "./instance"
 import { profileAPI } from "./profileAPI"
 
 export const usersAPI = {
-   getUsers(currentPage: number = 1, pageSize: number = 5) {
-      return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+   getUsers(param: GetUsersParamType) {
+      return instance.get(`users?page=${param.currentPage}&count=${param.pageSize}`)
    },
    getUserProfile(userId: string) {
       return profileAPI.getUserProfile(userId)
@@ -15,3 +15,4 @@ export const usersAPI = {
       return instance.delete(`follow/${userID}`)
    }
 }
+export type GetUsersParamType = { currentPage: number, pageSize: number }

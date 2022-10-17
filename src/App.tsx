@@ -12,7 +12,7 @@ import { Dialogs } from './features/Dialogs/Dialogs';
 import { Profile } from './features/Profile/Profile';
 import { Header } from './common/components/Header/Header';
 import './common/style/app.scss'
-import { Users } from './features/Users/Users';
+import { Users } from './features/users/Users';
 export function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
