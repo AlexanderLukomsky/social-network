@@ -1,22 +1,17 @@
+import { FC } from 'react'
 import { NavLink } from 'react-router-dom';
 import usersDefaultPhoto from '../../assets/usersImg.jpg';
 import { UsersForUserPageType } from '../../common/types/StateType';
-type UsersPropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    users: UsersForUserPageType[]
-    changeCurrentPage: (currentPage: number) => void
-    unfollowThunkCreator: (id: number) => void
-    followThunkCreator: (id: number) => void
-    followingInProgress: number[]
-}
-export const Users = (props: UsersPropsType) => {
+
+export const Users: FC<UsersPropsType> = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pagesCountArr: number[] = []
     for (let page = 1; page <= pagesCount; page++) {
         pagesCountArr = [...pagesCountArr, page]
     }
+
+
+
 
     const unfollow = (userID: number) => {
         props.unfollowThunkCreator(userID)
@@ -24,7 +19,6 @@ export const Users = (props: UsersPropsType) => {
     const follow = (userID: number) => {
         props.followThunkCreator(userID)
     }
-
     return (
         <div className="users">
             <ul className="users__list_pages">
@@ -56,4 +50,14 @@ export const Users = (props: UsersPropsType) => {
                 </div>)}
         </div>
     )
+}
+type UsersPropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    users: UsersForUserPageType[]
+    changeCurrentPage: (currentPage: number) => void
+    unfollowThunkCreator: (id: number) => void
+    followThunkCreator: (id: number) => void
+    followingInProgress: number[]
 }

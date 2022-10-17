@@ -1,7 +1,7 @@
+import { Button } from "@mui/material";
 import { Field, Form } from "react-final-form";
 import { Textarea } from "../../../common/components/FormsControls/FormsControls";
 import { maxLengthCreator, requiredField } from "../../../common/utils/validators/validator";
-import { Button } from "../Button/Button";
 type FormDataType = {
     addNewPost: string
 }
@@ -20,7 +20,7 @@ export const AddPostForm = ({ onSubmit, ...props }: PropsType<FormDataType>) => 
                         placeholder='add new post'
                         validate={composeValidators(requiredField, maxLengthCreator(10))}
                     />
-                    <Button title='add post' callback={handleSubmit} />
+                    <Button onClick={handleSubmit} > add post</Button>
                 </form>
             )
         }
