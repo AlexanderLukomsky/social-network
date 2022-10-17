@@ -1,5 +1,5 @@
 import { authAPI, usersAPI } from "../API/api"
-import { AuthDataType, AuthStateType } from "../components/types/StateType"
+import { AuthDataType, AuthStateType } from "../common/types/StateType"
 
 type SetUserDataACType = ReturnType<typeof setAuthUserDataAC>
 type LogoutAC = ReturnType<typeof logoutAC>

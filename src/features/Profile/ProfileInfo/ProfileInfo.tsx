@@ -1,5 +1,5 @@
-import { Preloader } from "../../common/Preloader"
-import { ProfileType } from "../../types/StateType"
+import { Preloader } from "../../../common/components/Preloader"
+import { ProfileType } from "../../../common/types/StateType"
 import { ProfileStatus } from "../ProfileStatus/ProfileStatus"
 
 type ProfileInfoType = {

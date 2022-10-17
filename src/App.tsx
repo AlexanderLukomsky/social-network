@@ -1,18 +1,18 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.scss';
-import { Footer } from './components/Footer/Footer';
-import { Music } from './components/Music/Music';
-import { News } from './components/News/News';
-import { Settings } from './components/Settings/Settings';
-import { Sidebar } from './components/Sidebar/Sidebar';
+import { Footer } from './common/components/Footer/Footer';
+import { Music } from './features/Music/Music';
+import { News } from './features/News/News';
+import { Settings } from './features/Settings/Settings';
+import { Sidebar } from './features/Sidebar/Sidebar';
 import { useEffect } from 'react';
-import { HeaderContainer } from './components/Header/HeaderContainer';
-import { LoginPage } from './components/Login/Login';
-import { UsersContainer } from './components/Users/UsersContainer';
+import { HeaderContainer } from './common/components/Header/HeaderContainer';
+import { LoginPage } from './features/Login/Login';
+import { UsersContainer } from './features/Users/UsersContainer';
 import { authThunkCreator } from './redux/auth-reducer';
 import { useAppDispatch } from './redux/redux-store';
-import { Profile } from './components/Profile/Profile';
-import { Dialogs } from './components/Dialogs/Dialogs';
+import { Dialogs } from './features/Dialogs/Dialogs';
+import { Profile } from './features/Profile/Profile';
 export function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {

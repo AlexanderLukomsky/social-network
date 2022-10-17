@@ -1,4 +1,4 @@
-import { ProfilePageType } from "../../types/StateType"
+import { ProfilePageType } from "../../../common/types/StateType"
 import { AddPostForm } from "./AddPostForm"
 import { PostItem } from "./Post/PostItem"
 import s from './Posts.module.scss'

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { setUserProfileThunkCreator } from '../../redux/profile-reducer'
 import { updateProfileStatusThunk } from '../../redux/profileStatus-reducer'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-store'
-import { ProfileType } from '../types/StateType'
+import { ProfileType } from '../../common/types/StateType'
 import { UserPostsContainer } from './Posts/UserPostsContainer'
 import { ProfileInfo } from './ProfileInfo/ProfileInfo'
 

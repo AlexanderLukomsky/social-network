@@ -1,6 +1,6 @@
 
 import { NavLink } from "react-router-dom"
-import { AuthStateType } from "../types/StateType"
+import { AuthStateType } from "../../types/StateType"
 
 type HeaderPropsType = { state: AuthStateType, logout: () => void }
 export const Header = (props: HeaderPropsType) => {

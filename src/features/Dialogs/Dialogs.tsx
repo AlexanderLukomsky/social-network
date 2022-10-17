@@ -1,4 +1,4 @@
-import { DialogsPageType } from "../types/StateType"
+import { DialogsPageType } from "../../common/types/StateType"
 import { AddMessageForm } from "./AddMessageForm"
 import { DialogItem } from "./DialogItem/DialogItem"
 import { DialogMessage } from "./DialogMessage/DialogMessage"

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import usersDefaultPhoto from '../../assets/usersImg.jpg';
-import { UsersForUserPageType } from '../types/StateType';
+import { UsersForUserPageType } from '../../common/types/StateType';
 type UsersPropsType = {
     totalUsersCount: number
     pageSize: number

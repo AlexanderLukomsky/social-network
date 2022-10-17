@@ -1,6 +1,6 @@
 import React from "react";
-import { Preloader } from "../common/Preloader";
-import { UsersForUserPageType, UsersPageType } from "../types/StateType";
+import { Preloader } from "../../common/components/Preloader";
+import { UsersForUserPageType, UsersPageType } from "../../common/types/StateType";
 import { Users } from "./Users";
 type UsersPropsType = {
     users: UsersForUserPageType[]
