@@ -34,5 +34,9 @@ test('should first', () => {
       posts: [{ id: v1(), message: 'message-1', likesCount: 5 }]
 
    }
-   const newPost = profileReducer
+   const action = { type: 'ADD-POST' as const, payload: { newPostText: 'its test text' } }
+   const newPost = profileReducer(initState, action)
+   expect(newPost.posts.length).toBe(2)
+   expect(newPost.posts[0].message).toBe('its test text')
+
 })
