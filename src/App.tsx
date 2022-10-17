@@ -6,22 +6,22 @@ import { News } from './features/News/News';
 import { Settings } from './features/Settings/Settings';
 import { Sidebar } from './features/Sidebar/Sidebar';
 import { useEffect } from 'react';
-import { HeaderContainer } from './common/components/Header/HeaderContainer';
 import { LoginPage } from './features/Login/Login';
 import { UsersContainer } from './features/Users/UsersContainer';
-import { authThunkCreator } from './features/Login/auth-reducer';
+import { authThunk } from './features/Login/auth-reducer';
 import { useAppDispatch } from './redux/redux-store';
 import { Dialogs } from './features/Dialogs/Dialogs';
 import { Profile } from './features/Profile/Profile';
+import { Header } from './common/components/Header/Header';
 export function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(authThunkCreator())
+    dispatch(authThunk())
   }, [])
   return (
     <div className="App">
       <div className='app-wrapper'>
-        <HeaderContainer />
+        <Header />
         <nav className='sidebar'>
           <Sidebar />
         </nav>

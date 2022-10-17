@@ -1,7 +1,8 @@
+import { AppThunk } from './../../redux/redux-store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v1 } from 'uuid';
-import { usersAPI } from '../../api/api';
 import { ProfileType } from '../../common/types/StateType';
+import { usersAPI } from '../../api/userApi';
 const initialState = {
     profile: null as null | ProfileType,
     posts: [
@@ -29,7 +30,7 @@ const slice = createSlice({
 })
 export const profileReducer = slice.reducer
 export const { addNewPost, deletePost, setUserProfile } = slice.actions
-export const setUserProfileThunkCreator = (userId: string = '19615') => (dispatch: (action: ReturnType<typeof setUserProfile>) => void) => {
+export const setUserProfileThunkCreator = (userId: string = '19615'): AppThunk => (dispatch) => {
     usersAPI.getUserProfile(userId)
         .then(data => {
             dispatch(setUserProfile({ profile: data.data }))

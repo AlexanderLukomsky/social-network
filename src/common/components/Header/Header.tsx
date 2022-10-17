@@ -1,18 +1,24 @@
-
+import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
-import { AuthStateType } from "../../types/StateType"
+import { logoutThunk } from "../../../features/Login/auth-reducer"
+import { useAppDispatch } from "../../../redux/redux-store"
+import { selectAuth } from "../../selectors/selectors"
 
-type HeaderPropsType = { state: AuthStateType, logout: () => void }
-export const Header = (props: HeaderPropsType) => {
+export const Header = () => {
+    const auth = useSelector(selectAuth)
+    const dispatch = useAppDispatch()
+    const logout = () => {
+        dispatch(logoutThunk())
+    }
     return (
         <header className='header'>
             <img className='header__img' src="https://i.redd.it/yh47wtwmbj961.png" alt="logo" />
             <div>
                 {
-                    props.state.isAuth ? <div>
-                        {props.state.data.login}
+                    auth.isAuth ? <div>
+                        {auth.data.login}
                         <div>
-                            <button onClick={props.logout}>logout</button>
+                            <button onClick={logout}>logout</button>
                         </div>
                     </div> : <NavLink to='/login'>Login</NavLink>
                 }
