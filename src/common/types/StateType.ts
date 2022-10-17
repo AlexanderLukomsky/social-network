@@ -32,7 +32,7 @@ export type UsersPageType = {
     data: UsersDataType[]
     pageSize: number
     totalUsersCount: number
-    currentPage: number
+    page: number
     isFetching: boolean
     followingInProgress: number[]
     error: null
@@ -67,4 +67,8 @@ export type AuthDataType = {
 export type AuthStateType = {
     data: AuthDataType
     isAuth: boolean
+}
+export enum ResultStatus {
+    OK = 0,
+    FAILED = 1
 }
