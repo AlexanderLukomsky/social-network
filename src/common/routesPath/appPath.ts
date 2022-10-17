@@ -4,5 +4,6 @@ export enum appPath {
    USERS = '/users',
    NEWS = '/news',
    MUSIC = '/music',
-   SETTINGS = '/settings'
+   SETTINGS = '/settings',
+   LOGIN = '/login'
 }

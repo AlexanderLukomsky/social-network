@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import './App.scss';
 import { Footer } from './common/components/Footer/Footer';
 import { Music } from './features/Music/Music';
 import { News } from './features/News/News';
@@ -13,17 +12,18 @@ import { useAppDispatch } from './redux/redux-store';
 import { Dialogs } from './features/Dialogs/Dialogs';
 import { Profile } from './features/Profile/Profile';
 import { Header } from './common/components/Header/Header';
+import './common/style/app.scss'
 export function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(authThunk())
   }, [])
   return (
-    <div className="App">
-      <div className='app-wrapper'>
+    <div className="app">
+      <div className='container'>
         <Header />
-        <Sidebar />
         <div className='body'>
+          <Sidebar />
           <Routes>
             <Route path='/profile/:userId' element={<Profile />} />
             <Route path='/profile' element={<Profile />} />
