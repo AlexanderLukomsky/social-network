@@ -1,8 +1,6 @@
-import { ActionType } from '../../redux/redux-store';
-import { ProfileType } from '../../common/types/StateType';
 import { v1 } from 'uuid';
-import { ProfilePageType } from '../../common/types/StateType';
-import { usersAPI } from '../../API/api';
+import { usersAPI } from '../../api/api';
+import { ProfilePageType, ProfileType } from '../../common/types/StateType';
 type AddPostACType = ReturnType<typeof addPostAC>
 type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export type ProfileActionType = AddPostACType | SetUserProfileACType
@@ -38,5 +36,5 @@ export const setUserProfileAC = (profile: ProfileType) => {
 }
 export const setUserProfileThunkCreator = (userId: string = '19615') => (dispatch: (action: ProfileActionType) => void) => {
     usersAPI.getUserProfile(userId)
-        .then(data => dispatch(setUserProfileAC(data)))
+        .then(data => dispatch(setUserProfileAC(data.data)))
 }

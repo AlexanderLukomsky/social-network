@@ -1,4 +1,4 @@
-import { usersAPI } from "../../API/api"
+import { usersAPI } from "../../api/api"
 import { UsersForUserPageType, UsersPageType } from "../../common/types/StateType"
 const initialState: UsersPageType = {
     users: [
@@ -89,8 +89,8 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (
     usersAPI.getUsers(currentPage, pageSize)
         .then(data => {
             dispatch(toggleIsFetchingAC(false))
-            dispatch(setUsersAC(data.items))
-            dispatch(setTotalCountAC(data.totalCount))
+            dispatch(setUsersAC(data.data.items))
+            dispatch(setTotalCountAC(data.data.totalCount))
             dispatch(changeCurrentPageAC(currentPage))
         })
 }
@@ -98,7 +98,7 @@ export const followThunkCreator = (userID: number) => (dispatch: (action: UsersP
     dispatch(toggleFollowingProgressAC(userID, true))
     usersAPI.follow(userID)
         .then(data => {
-            if (data.resultCode === 0) {
+            if (data.data.resultCode === 0) {
                 dispatch(followAC(userID))
             }
             dispatch(toggleFollowingProgressAC(userID, false))
@@ -108,7 +108,7 @@ export const unfollowThunkCreator = (userID: number) => (dispatch: (action: User
     dispatch(toggleFollowingProgressAC(userID, true))
     usersAPI.unFollow(userID)
         .then(data => {
-            if (data.resultCode === 0) {
+            if (data.data.resultCode === 0) {
                 dispatch(unfollowAC(userID))
             }
             dispatch(toggleFollowingProgressAC(userID, false))

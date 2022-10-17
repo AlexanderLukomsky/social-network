@@ -1,4 +1,4 @@
-import { authAPI, usersAPI } from "../../API/api"
+import { authAPI } from "../../api/api"
 import { AuthDataType, AuthStateType } from "../../common/types/StateType"
 
 type SetUserDataACType = ReturnType<typeof setAuthUserDataAC>
@@ -37,7 +37,7 @@ export const logoutAC = () => {
 export const authThunkCreator = () => (dispatch: (action: AuthActionType) => void) => {
     authAPI.me()
         .then(data => {
-            if (data.resultCode === 0) {
+            if (data.data.resultCode === 0) {
                 dispatch(setAuthUserDataAC(data.data))
             }
         })

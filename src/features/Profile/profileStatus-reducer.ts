@@ -1,4 +1,4 @@
-import { ProfileAPI } from '../../API/api';
+import { ProfileAPI } from '../../api/api';
 type SetProfileStatusACType = ReturnType<typeof setProfileStatusAC>
 type ProfileStatusActionType = SetProfileStatusACType
 export type ProfileStatusType = typeof initialState
@@ -23,13 +23,13 @@ export const setProfileStatusAC = (status: string) => {
 export const getProfileStatusThunk = (id: string) => (dispatch: (action: ProfileStatusActionType) => void) => {
     ProfileAPI.getStatus(id)
         .then(data => {
-            dispatch(setProfileStatusAC(data))
+            dispatch(setProfileStatusAC(data.data))
         })
 }
 export const updateProfileStatusThunk = (status: string) => (dispatch: (action: ProfileStatusActionType) => void) => {
     ProfileAPI.updateStatus(status)
         .then(data => {
-            if (data.resultCode === 0) {
+            if (data.data.resultCode === 0) {
                 dispatch(setProfileStatusAC(status))
             }
 

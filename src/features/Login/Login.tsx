@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { authAPI } from "../../API/api";
+import { authAPI } from "../../api/api";
 import { authThunkCreator } from "./auth-reducer";
 import { useAppDispatch } from "../../redux/redux-store";
 import { LoginForm } from "./LoginForm/LoginForm"
