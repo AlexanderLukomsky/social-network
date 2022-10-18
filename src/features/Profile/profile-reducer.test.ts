@@ -4,7 +4,9 @@ import { addNewPost, deletePost, profileReducer } from './profile-reducer';
 let initState = {} as ProfilePageType
 beforeEach(() => {
    initState = {
-      profile: {} as ProfileType,
+      data: {} as ProfileType,
+      profileStatus: null,
+      isInitialized: false,
       posts: [
          { id: 'first', message: 'message-1', likesCount: 5 },
          { id: 'second', message: 'message-2', likesCount: 8 },

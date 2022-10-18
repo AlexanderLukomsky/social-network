@@ -7,13 +7,13 @@ import { NavLink, useLocation } from "react-router-dom"
 import { logoutThunk } from "../../../features/Login/auth-reducer"
 import { useAppDispatch } from "../../../redux/redux-store"
 import { appPath } from '../../routesPath/appPath'
-import { selectApp, selectAuth } from "../../selectors/selectors"
+import { selectAppStatus, selectAuth } from "../../selectors/selectors"
 import { LinearProgress } from '@mui/material';
 import './header.scss'
 
 export const Header = () => {
    const location = useLocation()
-   const { appStatus } = useSelector(selectApp)
+   const appStatus = useSelector(selectAppStatus)
    const auth = useSelector(selectAuth)
    const dispatch = useAppDispatch()
    const logout = () => {

@@ -1,12 +1,10 @@
 import { configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-
 import { AnyAction, combineReducers } from "redux";
 import { appReducer } from '../app/app-reducer';
 import { dialogsReducer } from '../features/Dialogs/dialogs-reducer';
 import { authReducer } from '../features/Login/auth-reducer';
 import { profileReducer } from '../features/profile/profile-reducer';
-import { profileStatusReducer } from '../features/profile/profileStatus-reducer';
 import { usersReducer } from '../features/users/user-reducer';
 const rootReducer = combineReducers({
     app: appReducer,
@@ -14,7 +12,6 @@ const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     users: usersReducer,
     auth: authReducer,
-    profilestatus: profileStatusReducer,
 })
 export const store = configureStore({ reducer: rootReducer })
 export const useAppDispatch = () => useDispatch<typeof store.dispatch>()

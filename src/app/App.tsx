@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Footer } from '../common/components/Footer/Footer';
 import { Header } from '../common/components/Header/Header';
 import { AppRoutes } from '../common/routes/AppRoutes';
-import { selectApp } from '../common/selectors/selectors';
+import { selectAppIsInitialized } from '../common/selectors/selectors';
 import { Sidebar } from '../features/Sidebar/Sidebar';
 import { useAppDispatch } from '../redux/redux-store';
 import { initializeApp } from './app-reducer';
@@ -11,11 +11,12 @@ import './app.scss';
 
 
 export function App() {
-  const { isInitialized } = useSelector(selectApp)
+  const isInitialized = useSelector(selectAppIsInitialized)
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(initializeApp())
-  }, [])
+  }, [dispatch])
+  console.log('app');
   return (
     <div className="app">
       <div className='container'>

@@ -6,7 +6,7 @@ export const profileAPI = {
       return instance.get(`profile/${userId ? userId : '19615'}`)
    },
    getStatus(userID: string) {
-      return instance.get(`profile/status/${userID}`)
+      return instance.get<string | null>(`profile/status/${userID}`)
    },
    updateStatus(status: string) {
       return instance.put<{

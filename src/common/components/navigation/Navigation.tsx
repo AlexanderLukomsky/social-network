@@ -21,17 +21,17 @@ export const Navigation = () => {
             </Button>
          </li>
          <li className='nav-list__item'>
-            <Button component={NavLink} to={appPath.NEWS} variant="contained"  >
+            <Button disabled component={NavLink} to={appPath.NEWS} variant="contained"  >
                Новости
             </Button>
          </li>
          <li className='nav-list__item'>
-            <Button component={NavLink} to={appPath.MUSIC} variant="contained"  >
+            <Button disabled component={NavLink} to={appPath.MUSIC} variant="contained"  >
                Музыки
             </Button>
          </li>
          <li className='nav-list__item'>
-            <Button component={NavLink} to={appPath.SETTINGS} variant="contained"  >
+            <Button disabled component={NavLink} to={appPath.SETTINGS} variant="contained"  >
                Настройки
             </Button>
          </li>

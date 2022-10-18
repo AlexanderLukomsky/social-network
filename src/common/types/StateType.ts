@@ -7,7 +7,9 @@ type MessagesType = { id: string, message: string }
 
 
 export type ProfilePageType = {
-    profile: ProfileType
+    data: ProfileType
+    profileStatus: string | null
+    isInitialized: false
     posts: PostsType[]
     status: StatusesTypes
 }
@@ -43,23 +45,14 @@ export type UsersPageType = {
 
 export type ProfileType = {
     aboutMe: string
-    contacts: {
-        facebook: string
-        website: null,
-        vk: string
-        twitter: string
-        instagram: string
-        youtube: null,
-        github: string
-        mainLink: null
-    },
-    lookingForAJob: true,
-    lookingForAJobDescription: string
+    contacts: ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
     fullName: string
     userId: number,
     photos: {
-        small: string
-        large: string
+        small: string | null
+        large: string | null
     }
 }
 export type AuthDataType = {
@@ -70,4 +63,16 @@ export type AuthDataType = {
 export type AuthStateType = {
     data: AuthDataType
     isAuth: boolean
+}
+
+
+type ContactsType = {
+    facebook: string | null
+    website: string | null
+    vk: string | null
+    twitter: string | null
+    instagram: string | null
+    youtube: string | null
+    github: string | null
+    mainLink: string | null
 }

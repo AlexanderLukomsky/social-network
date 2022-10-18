@@ -5,7 +5,6 @@ import { DialogMessage } from "./DialogMessage/DialogMessage"
 import { addMessageAC } from './dialogs-reducer'
 import { useAppSelector } from "../../redux/redux-store"
 
-
 export const Dialogs = () => {
     const dialogsPage = useAppSelector(state => state.dialogsPage)
     const addMessageHandler = (newMessageObj: { newMessageBody: string }) => {

@@ -5,7 +5,9 @@ import { ProfileType } from '../../common/types/StateType';
 import { profileAPI } from './../../api/profileAPI';
 import { ResultStatus, StatusesTypes } from './../../common/types/commonTypes';
 const initialState = {
-    profile: {} as ProfileType,
+    data: {} as ProfileType,
+    profileStatus: null as null | string,
+    isInitialized: false,
     posts: [
         { id: v1(), message: 'message-1', likesCount: 5 },
         { id: v1(), message: 'message-2', likesCount: 8 },
@@ -24,15 +26,19 @@ const slice = createSlice({
         },
         deletePost: (state, action: PayloadAction<string>) => {
             state.posts = state.posts.filter(el => el.id !== action.payload)
+        },
+        setIsInitialized: (state, action) => {
+            state.isInitialized = action.payload
         }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(setUserProfile.pending, state => {
+            .addCase(getProfile.pending, state => {
                 state.status = 'pending'
             })
-            .addCase(setUserProfile.fulfilled, (state, action) => {
-                state.profile = action.payload
+            .addCase(getProfile.fulfilled, (state, action) => {
+                state.data = action.payload
+                state.isInitialized = true
                 state.status = 'succeeded'
             })
             .addCase(updatePhoto.pending, state => {
@@ -40,17 +46,23 @@ const slice = createSlice({
             })
             .addCase(updatePhoto.fulfilled, (state, action) => {
                 if (action.payload.resultCode === ResultStatus.OK) {
-                    state.profile.photos = action.payload.data.photos
+                    state.data.photos = action.payload.data.photos
                 }
                 state.status = 'succeeded'
+            })
+            .addCase(getProfileStatus.fulfilled, (state, action) => {
+                state.profileStatus = action.payload
             })
     }
 })
 export const profileReducer = slice.reducer
-export const { addNewPost, deletePost } = slice.actions
+export const { addNewPost, deletePost, setIsInitialized } = slice.actions
 
-export const setUserProfile = createAsyncThunk(
-    'profile/setUserProfile',
+
+
+
+export const getProfile = createAsyncThunk(
+    'profile/get-profile',
     async (userId: string, { rejectWithValue }) => {
         try {
             const res = await profileAPI.getProfile(userId)
@@ -71,6 +83,18 @@ export const updatePhoto = createAsyncThunk(
             return rejectWithValue('')
         } finally {
             dispatch(setAppStatus('succeeded'))
+        }
+    }
+)
+
+export const getProfileStatus = createAsyncThunk(
+    'profile/get-status',
+    async (id: string, { rejectWithValue }) => {
+        try {
+            const res = await profileAPI.getStatus(id)
+            return res.data
+        } catch {
+            return rejectWithValue('')
         }
     }
 )
