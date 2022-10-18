@@ -1,5 +1,5 @@
 import { ProfilePageType } from '../../common/types/StateType';
-import { addNewPost, deletePost, profileReducer } from '../Profile/profile-reducer';
+import { addNewPost, deletePost, profileReducer } from './profile-reducer';
 let initState = {} as ProfilePageType
 beforeEach(() => {
    initState = {

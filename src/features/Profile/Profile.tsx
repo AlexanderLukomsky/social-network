@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { selectProfile } from '../../common/selectors/selectors'
 import { useAppDispatch } from '../../redux/redux-store'
-import { Posts } from './Posts/Posts'
+import { Posts } from './posts/Posts'
 import { setUserProfileThunkCreator } from './profile-reducer'
-import { ProfileInfo } from './ProfileInfo/ProfileInfo'
+import { ProfileInfo } from './profileInfo/ProfileInfo'
 import { updateProfileStatusThunk } from './profileStatus-reducer'
 
 export const Profile = () => {

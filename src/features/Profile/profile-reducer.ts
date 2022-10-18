@@ -1,4 +1,4 @@
-import { AppThunk } from './../../redux/redux-store';
+import { AppThunk } from '../../redux/redux-store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v1 } from 'uuid';
 import { ProfileType } from '../../common/types/StateType';

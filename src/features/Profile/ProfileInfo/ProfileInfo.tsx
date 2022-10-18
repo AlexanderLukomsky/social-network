@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Preloader } from "../../../common/components/Preloader"
 import { ProfileType } from "../../../common/types/StateType"
-import { ProfileStatus } from "../ProfileStatus/ProfileStatus"
+import { ProfileStatus } from "../profileStatus/ProfileStatus"
 
 export const ProfileInfo: FC<ProfileInfoPropsType> = ({ profile, updateStatus }) => {
     if (!profile) return <Preloader />

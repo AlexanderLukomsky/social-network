@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { LoginPage } from '../features/Login/Login';
 import { authThunk } from '../features/Login/auth-reducer';
 import { useAppDispatch } from '../redux/redux-store';
-import { Profile } from '../features/Profile/Profile';
+import { Profile } from '../features/profile/Profile';
 import { Header } from '../common/components/Header/Header';
 import { Users } from '../features/users/Users';
 import './app.scss'
