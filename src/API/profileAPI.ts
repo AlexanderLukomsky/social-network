@@ -1,7 +1,8 @@
+import { ResultStatus } from "../common/types/commonTypes"
 import { instance } from "./instance"
 
 export const profileAPI = {
-   getUserProfile(userId: string) {
+   getProfile(userId: string) {
       return instance.get(`profile/${userId ? userId : '19615'}`)
    },
    getStatus(userID: string) {
@@ -12,6 +13,19 @@ export const profileAPI = {
          resultCode: number
          messages: string[],
          data: {}
-      }>(`profile/status`, { status })
+      }>('profile/status', { status })
+   },
+   updatePhoto(data: FormData) {
+      return instance.put<UpdatePhotoResponseType>('profile/photo', data, {
+         headers: {
+            'Content-Type': 'multipart/form-data; ',
+         },
+      })
    }
+}
+type UpdatePhotoResponseType = {
+   data: {
+      photos: { small: string, large: string }
+   }
+   resultCode: ResultStatus
 }

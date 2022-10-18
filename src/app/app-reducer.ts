@@ -28,7 +28,7 @@ const slice = createSlice({
 })
 
 export const appReducer = slice.reducer
-
+export const { setAppStatus } = slice.actions
 export const initializeApp = createAsyncThunk(
    'app/initialized',
    async (_, { rejectWithValue, dispatch }) => {

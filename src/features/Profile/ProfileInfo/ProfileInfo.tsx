@@ -1,11 +1,17 @@
 import { FC } from 'react'
 import usersImg from '../../../common/assets/usersImg.jpg'
-import { CustomProgress } from '../../../common/components/CustomProgress/CustomProgress'
-import { UploadButton } from '../../../common/components/uploadButton/UploadButton'
+import { UploadPhotoButton } from '../../../common/components/uploadPhotoButton/UploadPhotoButton'
 import { ProfileType } from "../../../common/types/StateType"
+import { useAppDispatch } from '../../../redux/redux-store'
+import { updatePhoto } from '../profile-reducer'
 import { ProfileStatus } from "../profileStatus/ProfileStatus"
 import './profileInfo.scss'
 export const ProfileInfo: FC<ProfileInfoPropsType> = ({ profile, updateStatus }) => {
+    const dispatch = useAppDispatch()
+    const successUploadHandler = (data: FormData) => {
+        dispatch(updatePhoto(data))
+    }
+    const errorUploadHandler = () => { console.warn('error'); }
 
     return (
         <div className="profile-info">
@@ -15,7 +21,10 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = ({ profile, updateStatus })
                     src={profile.photos.large ? profile.photos.large : usersImg}
                     alt=""
                 />
-                <UploadButton />
+                <UploadPhotoButton
+                    errorHandler={errorUploadHandler}
+                    successHandler={successUploadHandler}
+                />
             </div>
             <div className="profile-info__about">
                 <h4 className="profile-info__name">{profile.fullName}</h4>

@@ -1,7 +1,7 @@
-import { ChangeEvent, useEffect, useState, KeyboardEvent, FocusEvent } from "react"
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { ProfileStatusType, updateProfileStatusThunk } from "../profileStatus-reducer"
 import { AppRootStoreType, useAppDispatch } from "../../../redux/redux-store"
+import { ProfileStatusType, updateProfileStatusThunk } from "../profileStatus-reducer"
 
 export const ProfileStatus = (props: { updateStatus: (status: string) => void }) => {
     const profileStatus = useSelector<AppRootStoreType, ProfileStatusType>(state => state.profilestatus)

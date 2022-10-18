@@ -7,7 +7,7 @@ type MessagesType = { id: string, message: string }
 
 
 export type ProfilePageType = {
-    profile: ProfileType | null
+    profile: ProfileType
     posts: PostsType[]
     status: StatusesTypes
 }

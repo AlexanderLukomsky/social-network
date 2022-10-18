@@ -25,7 +25,7 @@ export const Profile = () => {
     return (
         <div className='profile'>
             {
-                profile ?
+                Object.keys(profile).length !== 0 ?
                     <>
                         <ProfileInfo
                             profile={profile}
