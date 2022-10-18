@@ -27,6 +27,7 @@ export const getProfileStatusThunk = (id: string) => (dispatch: (action: Profile
         })
 }
 export const updateProfileStatusThunk = (status: string) => (dispatch: (action: ProfileStatusActionType) => void) => {
+    console.log('object');
     profileAPI.updateStatus(status)
         .then(data => {
             if (data.data.resultCode === 0) {

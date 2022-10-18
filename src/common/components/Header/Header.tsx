@@ -7,11 +7,13 @@ import { NavLink, useLocation } from "react-router-dom"
 import { logoutThunk } from "../../../features/Login/auth-reducer"
 import { useAppDispatch } from "../../../redux/redux-store"
 import { appPath } from '../../routesPath/appPath'
-import { selectAuth } from "../../selectors/selectors"
+import { selectApp, selectAuth } from "../../selectors/selectors"
+import { LinearProgress } from '@mui/material';
 import './header.scss'
 
 export const Header = () => {
    const location = useLocation()
+   const { appStatus } = useSelector(selectApp)
    const auth = useSelector(selectAuth)
    const dispatch = useAppDispatch()
    const logout = () => {
@@ -37,16 +39,17 @@ export const Header = () => {
                      <Typography variant="h6" component="div" >
                         {getLocationText(location.pathname)}
                      </Typography>
-                     <Button onClick={logout} size="large" component={NavLink} to={appPath.LOGIN} color="inherit" variant="text">
+                     <Button disabled={appStatus === 'pending'} onClick={logout} size="large" component={NavLink} to={appPath.LOGIN} color="inherit" variant="text">
                         Выйти
                      </Button>
                   </>
                   :
-                  <Button component={NavLink} to={appPath.LOGIN} size="medium" color="inherit" variant="text">
+                  <Button disabled={appStatus === 'pending'} component={NavLink} to={appPath.LOGIN} size="medium" color="inherit" variant="text">
                      Войти
                   </Button>
             }
          </Toolbar>
+         {appStatus === 'pending' && <LinearProgress color='success' />}
       </AppBar>
    );
 }

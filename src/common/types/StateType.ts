@@ -1,3 +1,5 @@
+import { StatusesTypes } from "./commonTypes"
+
 export type PostsType = { id: string, message: string, likesCount: number }
 type DialogsType = { id: string, name: string, img: string }
 type MessagesType = { id: string, message: string }
@@ -7,6 +9,7 @@ type MessagesType = { id: string, message: string }
 export type ProfilePageType = {
     profile: ProfileType | null
     posts: PostsType[]
+    status: StatusesTypes
 }
 export type DialogsPageType = {
     dialogs: DialogsType[]
@@ -67,8 +70,4 @@ export type AuthDataType = {
 export type AuthStateType = {
     data: AuthDataType
     isAuth: boolean
-}
-export enum ResultStatus {
-    OK = 0,
-    FAILED = 1
 }

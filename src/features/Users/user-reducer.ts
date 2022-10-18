@@ -1,7 +1,7 @@
+import { ResultStatus } from './../../common/types/commonTypes';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { usersAPI } from "../../api/userApi";
 import { UsersDataType } from "../../common/types/StateType";
-import { ResultStatus } from './../../common/types/StateType';
 import { AppRootStoreType } from './../../redux/redux-store';
 const initialState = {
    data: [

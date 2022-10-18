@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
-import usersDefaultPhoto from '../../../assets/usersImg.jpg';
+import usersDefaultPhoto from '../../../common/assets/usersImg.jpg';
 import { useAppDispatch } from '../../../redux/redux-store';
 import { followThunk, unfollowThunk } from '../user-reducer';
 import './user.scss'

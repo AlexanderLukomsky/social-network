@@ -1,8 +1,8 @@
-import { AppThunk } from '../../redux/redux-store';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v1 } from 'uuid';
-import { ProfileType } from '../../common/types/StateType';
 import { usersAPI } from '../../api/userApi';
+import { ProfileType } from '../../common/types/StateType';
+import { StatusesTypes } from './../../common/types/commonTypes';
 const initialState = {
     profile: null as null | ProfileType,
     posts: [
@@ -12,6 +12,7 @@ const initialState = {
         { id: v1(), message: 'message-4', likesCount: 14 },
         { id: v1(), message: 'message-5', likesCount: 17 },
     ],
+    status: 'idle' as StatusesTypes
 }
 const slice = createSlice({
     name: 'profile',
@@ -22,17 +23,30 @@ const slice = createSlice({
         },
         deletePost: (state, action: PayloadAction<string>) => {
             state.posts = state.posts.filter(el => el.id !== action.payload)
-        },
-        setUserProfile: (state, action: PayloadAction<{ profile: ProfileType }>) => {
-            state.profile = action.payload.profile
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(setUserProfile.pending, (state, action) => {
+                state.status = 'pending'
+            })
+            .addCase(setUserProfile.fulfilled, (state, action) => {
+                state.profile = action.payload
+                state.status = 'succeeded'
+            })
     }
 })
 export const profileReducer = slice.reducer
-export const { addNewPost, deletePost, setUserProfile } = slice.actions
-export const setUserProfileThunkCreator = (userId: string = '19615'): AppThunk => (dispatch) => {
-    usersAPI.getUserProfile(userId)
-        .then(data => {
-            dispatch(setUserProfile({ profile: data.data }))
-        })
-}
+export const { addNewPost, deletePost } = slice.actions
+
+export const setUserProfile = createAsyncThunk(
+    'profile/setUserProfile',
+    async (userId: string, { rejectWithValue }) => {
+        try {
+            const res = await usersAPI.getUserProfile(userId)
+            return res.data
+        } catch {
+            return rejectWithValue('')
+        }
+    }
+)

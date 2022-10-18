@@ -5,7 +5,7 @@ type FooterType = {
 export const Footer = (props: FooterType) => {
     return (
         <footer className='footer'>
-            <Navigation />
+
         </footer>
     )
 }

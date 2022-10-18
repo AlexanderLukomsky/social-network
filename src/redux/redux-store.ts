@@ -2,12 +2,14 @@ import { configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { AnyAction, combineReducers } from "redux";
+import { appReducer } from '../app/app-reducer';
 import { dialogsReducer } from '../features/Dialogs/dialogs-reducer';
 import { authReducer } from '../features/Login/auth-reducer';
 import { profileReducer } from '../features/profile/profile-reducer';
 import { profileStatusReducer } from '../features/profile/profileStatus-reducer';
 import { usersReducer } from '../features/users/user-reducer';
 const rootReducer = combineReducers({
+    app: appReducer,
     profile: profileReducer,
     dialogsPage: dialogsReducer,
     users: usersReducer,

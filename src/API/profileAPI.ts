@@ -1,11 +1,9 @@
 import { instance } from "./instance"
 
 export const profileAPI = {
-
    getUserProfile(userId: string) {
       return instance.get(`profile/${userId ? userId : '19615'}`)
    },
-
    getStatus(userID: string) {
       return instance.get(`profile/status/${userID}`)
    },
@@ -14,6 +12,6 @@ export const profileAPI = {
          resultCode: number
          messages: string[],
          data: {}
-      }>(`status`, { status })
+      }>(`profile/status`, { status })
    }
 }
