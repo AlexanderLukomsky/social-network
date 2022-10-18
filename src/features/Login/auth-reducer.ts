@@ -1,9 +1,7 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { authAPI, MeResponseType } from '../../api/authAPI';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { authAPI, LoginRequestType, MeResponseType } from '../../api/authAPI';
 import { ResultStatus } from '../../common/types/commonTypes';
-import { AuthDataType } from "../../common/types/StateType"
-import { AppThunk } from '../../redux/redux-store';
+import { AuthDataType } from "../../common/types/StateType";
 const initialState = {
     data: {} as AuthDataType,
     isAuth: false
@@ -16,9 +14,6 @@ const slice = createSlice({
             state.data = action.payload
             state.isAuth = true
         },
-        logout: (state) => {
-            state.isAuth = false
-        },
     },
     extraReducers: (builder) => {
         builder.addCase(authThunk.fulfilled, (state, action) => {
@@ -27,10 +22,13 @@ const slice = createSlice({
                 state.isAuth = true
             }
         })
+        builder.addCase(logoutThunk.fulfilled, state => {
+            state.isAuth = false
+        })
     }
 })
 export const authReducer = slice.reducer
-export const { setAuthUserData, logout } = slice.actions
+export const { setAuthUserData } = slice.actions
 
 export const authThunk = createAsyncThunk<MeResponseType, undefined, { rejectValue: string }>(
     'auth/me',
@@ -43,14 +41,28 @@ export const authThunk = createAsyncThunk<MeResponseType, undefined, { rejectVal
         }
     }
 )
-
-export const logoutThunk = (): AppThunk => async (dispatch) => {
-    await authAPI.logout()
-    dispatch(logout())
-}
-export const loginThunk = (login: string, password: string): AppThunk => async (dispatch) => {
-    const res = await authAPI.login(login, password)
-    if (res.data.resultCode === 0) {
-        dispatch(authThunk())
+export const logoutThunk = createAsyncThunk(
+    'auth/logout',
+    async (_, { rejectWithValue }) => {
+        try {
+            await authAPI.logout()
+        } catch {
+            return rejectWithValue('')
+        }
     }
-}
+)
+export const loginThunk = createAsyncThunk<unknown, LoginRequestType, { rejectValue: string }>(
+    'auth/login',
+    async (data, { rejectWithValue, dispatch }) => {
+        try {
+            const res = await authAPI.login(data)
+            if (res.data.resultCode === ResultStatus.OK) {
+                const action = await dispatch(authThunk())
+                if (authThunk.rejected.match(action))
+                    throw new Error(action.payload)
+            }
+        } catch {
+            rejectWithValue('')
+        }
+    }
+)

@@ -16,10 +16,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     profilestatus: profileStatusReducer,
 })
-export type AppStateType = ReturnType<typeof rootReducer>
-
 export const store = configureStore({ reducer: rootReducer })
-
 export const useAppDispatch = () => useDispatch<typeof store.dispatch>()
 export type AppRootStoreType = ReturnType<typeof rootReducer>
 export const useAppSelector: TypedUseSelectorHook<AppRootStoreType> = useSelector

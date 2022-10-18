@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState, KeyboardEvent, FocusEvent } from "react"
 import { useSelector } from "react-redux"
 import { ProfileStatusType, updateProfileStatusThunk } from "../profileStatus-reducer"
-import { AppStateType, useAppDispatch } from "../../../redux/redux-store"
+import { AppRootStoreType, useAppDispatch } from "../../../redux/redux-store"
 
 export const ProfileStatus = (props: { updateStatus: (status: string) => void }) => {
-    const profileStatus = useSelector<AppStateType, ProfileStatusType>(state => state.profilestatus)
+    const profileStatus = useSelector<AppRootStoreType, ProfileStatusType>(state => state.profilestatus)
     const dispatch = useAppDispatch()
     const [status, setStatus] = useState<string>('')
     const [editMode, setEditMode] = useState<boolean>(false)

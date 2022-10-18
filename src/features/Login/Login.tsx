@@ -9,7 +9,7 @@ export const LoginPage = () => {
     const { isAuth } = useSelector(selectAuth)
     const dispatch = useAppDispatch()
     const auth = (formData: { login: string, password: string }) => {
-        dispatch(loginThunk(formData.login, formData.password))
+        dispatch(loginThunk({ email: formData.login, password: formData.password, rememberMe: true }))
     }
     return (
         isAuth ? <Navigate replace to="/profile" /> :
