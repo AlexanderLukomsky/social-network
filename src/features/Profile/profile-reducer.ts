@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v1 } from 'uuid';
 import { setAppStatus } from '../../app/app-reducer';
 import { ProfileType } from '../../common/types/StateType';
-import { profileAPI } from './../../api/profileAPI';
+import { profileAPI, UpdateProfileType } from './../../api/profileAPI';
 import { ResultStatus, StatusesTypes } from './../../common/types/commonTypes';
 const initialState = {
     data: {} as ProfileType,
@@ -92,6 +92,18 @@ export const getProfileStatus = createAsyncThunk(
     async (id: string, { rejectWithValue }) => {
         try {
             const res = await profileAPI.getStatus(id)
+            return res.data
+        } catch {
+            return rejectWithValue('')
+        }
+    }
+)
+export const updateProfile = createAsyncThunk(
+    'profile/update-profile',
+    async (profile: UpdateProfileType, { rejectWithValue }) => {
+        console.log(profile)
+        try {
+            const res = await profileAPI.updateProfile(profile)
             return res.data
         } catch {
             return rejectWithValue('')

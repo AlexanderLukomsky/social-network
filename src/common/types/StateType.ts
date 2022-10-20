@@ -44,7 +44,7 @@ export type UsersPageType = {
 }
 
 export type ProfileType = {
-    aboutMe: string
+    aboutMe: string | null
     contacts: ContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string | null

@@ -1,25 +1,83 @@
-import { useSelector } from 'react-redux'
-import { CustomProgress } from '../../../common/components/CustomProgress/CustomProgress'
-import { selectProfile } from '../../../common/selectors/selectors'
-import './profileData.scss'
-import { ProfileDescription } from './profileDescription/ProfileDescription'
-import { ProfilePhoto } from './profilePhoto/ProfilePhoto'
+import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { CustomProgress } from '../../../common/components/CustomProgress/CustomProgress';
+import { selectAuthUserId, selectProfile } from '../../../common/selectors/selectors';
+import { useAppDispatch } from '../../../redux/redux-store';
+import { EditProfileModal } from '../editProfileModal/EditProfileModal';
+import { updateProfile } from '../profile-reducer';
+import Link from '@mui/material/Link';
+import './profileData.scss';
+import { ProfilePhoto } from './profilePhoto/ProfilePhoto';
 export const ProfileData = () => {
+    const dispatch = useAppDispatch()
     const { data, status, profileStatus } = useSelector(selectProfile)
+    const authId = useSelector(selectAuthUserId)
+    const isOwner = data.userId === authId
 
+    const [isOpenModal, setIsOpenModal] = useState(false)
+
+    const [fullName, setFullName] = useState(data.fullName)
+    const [aboutMe, setAboutMe] = useState(data.aboutMe)
+    const [contacts, setContacts] = useState({ github: data.contacts.github })
+
+
+    const onCloseModalHandler = () => { setIsOpenModal(false) }
+    const onOpenModalHandler = () => { setIsOpenModal(true) }
+
+    const onSubmitHandler = () => {
+        const data = {
+            fullName, aboutMe, contacts, userId: authId
+        }
+        dispatch(updateProfile(data))
+    }
     if (status === 'pending') { return <CustomProgress /> }
     return (
         <div className="profile-data">
-            <ProfilePhoto photo={data.photos.large} />
-            <ProfileDescription
-                profileStatus={profileStatus}
-                fullName={data.fullName}
-                lookingForAJob={data.lookingForAJob}
-                lookingForAJobDescription={data.lookingForAJobDescription}
-                gitLink={data.contacts.github}
-            />
-            <div className="profile-info__about">
+            <ProfilePhoto photo={data.photos.large} isOwner={isOwner} />
+
+            <div className='profile-data__description description'>
+                <h4 className="description__name">
+                    {data.fullName}
+                    {
+                        isOwner &&
+                        <IconButton size='small' onClick={onOpenModalHandler}>
+                            <EditIcon fontSize='small' color='primary' />
+                        </IconButton>
+                    }
+                </h4>
+                {
+                    profileStatus &&
+                    <div>
+                        {profileStatus}
+                    </div>
+                }
+                {
+                    data.aboutMe &&
+                    <div className='description__text'>
+                        {data.aboutMe}
+                    </div>
+                }
+                {
+                    isOwner && data.contacts.github &&
+                    <Link target={'_blank'} href={data.contacts.github}>
+                        Github
+                    </Link>
+                }
             </div>
+            <EditProfileModal
+                isOpen={isOpenModal}
+                fullName={fullName}
+                aboutMe={aboutMe === null ? '' : aboutMe}
+                contacts={contacts}
+                onClose={onCloseModalHandler}
+                onSubmit={onSubmitHandler}
+                onChangeFullName={setFullName}
+                onChangeAboutMe={setAboutMe}
+                onChangeContacts={setContacts}
+            />
         </div>
     )
 }

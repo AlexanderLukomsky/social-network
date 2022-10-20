@@ -1,0 +1,23 @@
+.edit-profile-modal {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   max-width: 400px;
+   width: 100%;
+   background-color: #fff;
+   border-radius: 4px;
+   padding: 30px;
+   &__body {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+      :not(:last-child) {
+         margin-bottom: 10px;
+      }
+   }
+   &__buttons {
+      display: flex;
+      justify-content: space-between;
+   }
+}

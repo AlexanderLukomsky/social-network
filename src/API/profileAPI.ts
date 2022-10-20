@@ -8,6 +8,9 @@ export const profileAPI = {
    getStatus(userID: string) {
       return instance.get<string | null>(`profile/status/${userID}`)
    },
+   updateProfile(data: UpdateProfileType) {
+      return instance.put('profile', { ...data, ...plug })
+   },
    updateStatus(status: string) {
       return instance.put<{
          resultCode: number
@@ -28,4 +31,14 @@ type UpdatePhotoResponseType = {
       photos: { small: string, large: string }
    }
    resultCode: ResultStatus
+}
+export type UpdateProfileType = {
+   userId: number
+   fullName: string
+   aboutMe: string | null
+   contacts: { github: string | null }
+}
+const plug = {
+   LookingForAJobDescriptionL: 'React',
+   LookingForAJobDescription: true
 }
