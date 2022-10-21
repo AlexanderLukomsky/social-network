@@ -1,16 +1,19 @@
 import { ResultStatus } from "../common/types/commonTypes"
+import { ProfilePhotosType, ProfileType } from "../common/types/profileTypes"
 import { instance } from "./instance"
 
 export const profileAPI = {
    getProfile(userId: string) {
-      return instance.get(`profile/${userId ? userId : '19615'}`)
+      return instance.get<ProfileType>(`profile/${userId ? userId : '19615'}`)
    },
    getStatus(userID: string) {
       return instance.get<string | null>(`profile/status/${userID}`)
    },
-   updateProfile(data: UpdateProfileType) {
-      return instance.put('profile', { ...data, ...plug })
+   updateProfile(data: UpdateProfileRequestType) {
+      return instance.put<UpdateProfileResponseType>('profile', { ...data, ...plug })
    },
+
+   //need editing
    updateStatus(status: string) {
       return instance.put<{
          resultCode: number
@@ -26,19 +29,20 @@ export const profileAPI = {
       })
    }
 }
-type UpdatePhotoResponseType = {
-   data: {
-      photos: { small: string, large: string }
-   }
-   resultCode: ResultStatus
-}
-export type UpdateProfileType = {
-   userId: number
-   fullName: string
-   aboutMe: string | null
-   contacts: { github: string | null }
-}
+///* clean
 const plug = {
    LookingForAJobDescriptionL: 'React',
    LookingForAJobDescription: true
 }
+type CommonResponseType = {
+   resultCode: ResultStatus
+   fieldsErrors: []
+   messages: []
+}
+type UpdateProfileResponseType = CommonResponseType
+type UpdatePhotoResponseType = { data: { photos: ProfilePhotosType } } & CommonResponseType
+export type UpdateProfileRequestType = {
+   contacts: { github: string | null }
+} & Pick<ProfileType, 'userId' | 'fullName' | 'aboutMe'>
+
+

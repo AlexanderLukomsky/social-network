@@ -1,7 +1,6 @@
-import { ProfileType } from './../../common/types/StateType';
-import { ProfilePageType } from '../../common/types/StateType';
+import { ProfileStateType, ProfileType } from '../../common/types/profileTypes';
 import { addNewPost, deletePost, profileReducer } from './profile-reducer';
-let initState = {} as ProfilePageType
+let initState = {} as ProfileStateType
 beforeEach(() => {
    initState = {
       data: {} as ProfileType,

@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v1 } from 'uuid';
 import { setAppStatus } from '../../app/app-reducer';
-import { ProfileType } from '../../common/types/StateType';
-import { profileAPI, UpdateProfileType } from './../../api/profileAPI';
+import { ProfileType } from '../../common/types/profileTypes';
+import { profileAPI, UpdateProfileRequestType } from './../../api/profileAPI';
 import { ResultStatus, StatusesTypes } from './../../common/types/commonTypes';
 const initialState = {
     data: {} as ProfileType,
@@ -100,11 +100,12 @@ export const getProfileStatus = createAsyncThunk(
 )
 export const updateProfile = createAsyncThunk(
     'profile/update-profile',
-    async (profile: UpdateProfileType, { rejectWithValue }) => {
-        console.log(profile)
+    async (profile: UpdateProfileRequestType, { rejectWithValue, dispatch }) => {
         try {
             const res = await profileAPI.updateProfile(profile)
-            return res.data
+            if (res.data.resultCode === ResultStatus.OK) {
+                dispatch(getProfile(profile.userId.toString()))
+            }
         } catch {
             return rejectWithValue('')
         }
