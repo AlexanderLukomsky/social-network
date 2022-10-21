@@ -11,7 +11,8 @@ beforeEach(() => {
          { id: 'second', message: 'message-2', likesCount: 8 },
          { id: 'third', message: 'message-3', likesCount: 11 }
       ],
-      status: 'idle'
+      status: 'idle',
+      notice: ''
    }
 })
 test('message of new post should be correct', () => {

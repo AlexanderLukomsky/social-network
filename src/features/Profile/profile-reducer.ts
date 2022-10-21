@@ -15,6 +15,7 @@ const initialState = {
         { id: v1(), message: 'message-4', likesCount: 14 },
         { id: v1(), message: 'message-5', likesCount: 17 },
     ],
+    notice: '',
     status: 'idle' as StatusesTypes
 }
 const slice = createSlice({

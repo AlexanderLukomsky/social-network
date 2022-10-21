@@ -6,6 +6,7 @@ export type ProfileStateType = {
    isInitialized: false
    posts: PostType[]
    status: StatusesTypes
+   notice: string
 }
 export type ProfileType = {
    aboutMe: string | null
