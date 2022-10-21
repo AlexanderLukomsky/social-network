@@ -1,47 +1,53 @@
-import { Form, Field } from 'react-final-form'
-type FormDataType = {
-    login: string, password: string
-}
-type PropsType<T> = {
-    onSubmit: (formData: T) => void
-    error: string
-}
-export const LoginForm = ({ onSubmit, ...props }: PropsType<FormDataType>) => {
-    const required = (value: any) => (value ? undefined : 'Required')
+import { FC } from 'react'
+import { Paper, TextField, Typography } from '@mui/material'
+import { useFormik } from 'formik'
+import Button from '@mui/material/Button';
+import './loginForm.scss'
+const validationSchema = {}
+
+export const LoginForm: FC<LoginFormPropsType> = ({ onSubmit }) => {
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        //   validationSchema: validationSchema,
+        onSubmit: (values) => {
+            onSubmit(values)
+        },
+    });
     return (
-        <Form onSubmit={onSubmit} >
-            {({ handleSubmit }) => {
-                return (
-                    <form onSubmit={handleSubmit}>
-                        <ul>
-                            <Field name="login" validate={required}>
-                                {({ input, meta }) => (
-                                    <li style={{ border: props.error ? '2px solid red' : '2px solid transparent' }}>
-                                        <input {...input} type="text" placeholder="login" />
-                                        {meta.error && meta.touched && <span>{meta.error}</span>}
-                                    </li>
-                                )}
-                            </Field>
-                            <Field name="password" validate={required}>
-                                {({ input, meta }) => (
-                                    <li style={{ border: props.error ? '2px solid red' : '2px solid transparent' }}>
-                                        <input {...input} type="text" placeholder="password" />
-                                        {meta.error && meta.touched && <span>{meta.error}</span>}
-                                    </li>
-                                )}
-                            </Field>
-                            <div style={{ color: 'red', fontSize: '18px' }}>
-                                {props.error}
-                            </div>
-                            <li>
-                                <button type='submit'>
-                                    login
-                                </button>
-                            </li>
-                        </ul>
-                    </form >
-                )
-            }}
-        </Form>
+        <Paper elevation={2} component={'form'} onSubmit={formik.handleSubmit} className='login-form'>
+            <h2 className='login-form__title'>Авторизация</h2>
+            <TextField
+                sx={{ mb: 4 }}
+                fullWidth
+                id="email"
+                name="email"
+                label="Почта"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+            />
+            <TextField
+                sx={{ mb: 5 }}
+                fullWidth
+                id="password"
+                name="password"
+                label="Пароль"
+                type="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={formik.touched.password && Boolean(formik.errors.password)}
+                helperText={formik.touched.password && formik.errors.password}
+            />
+            <Button className='login-form__button' color="primary" variant="contained" type="submit">
+                Войти
+            </Button>
+        </Paper>
     )
+}
+type LoginFormPropsType = {
+    onSubmit: (formData: { email: string, password: string }) => void
 }

@@ -26,12 +26,18 @@ export const Profile = () => {
         }
         return () => { dispatch(setIsInitialized(false)) }
     }, [dispatch, userId, data.id, isAuth])
-    if (!isInitialized) { return <CustomProgress /> }
     return (
         <div className='profile'>
-            <ProfileData />
-            <Posts />
-            <CustomSnackbar message={notice} isOpen={!!notice} onClose={() => { }} />
+            {
+                isInitialized ?
+                    <>
+                        <ProfileData />
+                        <Posts />
+                        <CustomSnackbar message={notice} isOpen={!!notice} onClose={() => { }} />
+                    </> :
+                    <CustomProgress />
+            }
+
         </div>
     )
 }

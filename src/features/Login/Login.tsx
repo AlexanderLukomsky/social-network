@@ -4,18 +4,18 @@ import { selectAuth } from "../../common/selectors/selectors";
 import { useAppDispatch } from "../../redux/redux-store";
 import { loginThunk } from "./auth-reducer";
 import { LoginForm } from "./LoginForm/LoginForm";
-
+import './login.scss'
+import { Paper } from "@mui/material";
 export const LoginPage = () => {
     const { isAuth } = useSelector(selectAuth)
     const dispatch = useAppDispatch()
-    const auth = (formData: { login: string, password: string }) => {
-        dispatch(loginThunk({ email: formData.login, password: formData.password, rememberMe: true }))
+    const auth = (formData: { email: string, password: string }) => {
+        dispatch(loginThunk({ email: formData.email, password: formData.password, rememberMe: true }))
     }
+    if (isAuth) { return <Navigate replace to="/profile" /> }
     return (
-        isAuth ? <Navigate replace to="/profile" /> :
-            <div>
-                <h1>Login</h1>
-                <LoginForm onSubmit={auth} error={''} />
-            </div>
+        <Paper elevation={3} className='login'>
+            <LoginForm onSubmit={auth} />
+        </Paper>
     )
 }
