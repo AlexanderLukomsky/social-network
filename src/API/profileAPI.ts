@@ -1,4 +1,4 @@
-import { ResultStatus } from "../common/types/commonTypes"
+import { CommonResponseType } from "../common/types/commonTypes"
 import { ProfilePhotosType, ProfileType } from "../common/types/profileTypes"
 import { instance } from "./instance"
 
@@ -34,11 +34,7 @@ const plug = {
    LookingForAJobDescriptionL: 'React',
    LookingForAJobDescription: true
 }
-type CommonResponseType = {
-   resultCode: ResultStatus
-   fieldsErrors: []
-   messages: []
-}
+
 type UpdateProfileResponseType = CommonResponseType
 type UpdatePhotoResponseType = { data: { photos: ProfilePhotosType } } & CommonResponseType
 export type UpdateProfileRequestType = {

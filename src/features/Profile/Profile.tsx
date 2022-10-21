@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { CustomSnackbar } from '../../common/assets/CustomSnackbar/CustomSnackbar'
+import { CustomSnackbar } from '../../common/CustomSnackbar/CustomSnackbar'
 import { CustomProgress } from '../../common/components/CustomProgress/CustomProgress'
 import { selectAuth, selectProfileIsInitialized, selectProfileNotice } from '../../common/selectors/selectors'
 import { useAppDispatch } from '../../redux/redux-store'

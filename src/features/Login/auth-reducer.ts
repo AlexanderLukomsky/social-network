@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { authAPI, LoginRequestType, MeResponseType } from '../../api/authAPI';
+import { authAPI, AuthResponseType, LoginRequestType } from '../../api/authAPI';
+import { AuthUserDataType } from '../../common/types/authTypes';
 import { ResultStatus } from '../../common/types/commonTypes';
-import { AuthDataType } from "../../common/types/StateType";
 const initialState = {
-    data: {} as AuthDataType,
+    data: {} as AuthUserDataType,
     isAuth: false
 }
 const slice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setAuthUserData: (state, action: PayloadAction<AuthDataType>) => {
+        setAuthUserData: (state, action: PayloadAction<AuthUserDataType>) => {
             state.data = action.payload
             state.isAuth = true
         },
@@ -30,7 +30,7 @@ const slice = createSlice({
 export const authReducer = slice.reducer
 export const { setAuthUserData } = slice.actions
 
-export const authThunk = createAsyncThunk<MeResponseType, undefined, { rejectValue: string }>(
+export const authThunk = createAsyncThunk<AuthResponseType, undefined, { rejectValue: string }>(
     'auth/me',
     async (_, { rejectWithValue }) => {
         try {

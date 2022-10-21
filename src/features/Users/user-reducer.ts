@@ -1,15 +1,14 @@
-import { ResultStatus } from './../../common/types/commonTypes';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { usersAPI } from "../../api/userApi";
-import { UsersDataType } from "../../common/types/StateType";
+import { UserType } from '../../common/types/userTypes';
+import { ResultStatus } from './../../common/types/commonTypes';
 import { AppRootStoreType } from './../../redux/redux-store';
 const initialState = {
    data: [
-   ] as UsersDataType[],
+   ] as UserType[],
    page: 1,
    pageSize: 5,
-   totalUsersCount: 0,
-   isFetching: false,
+   totalCount: 0,
    error: null,
    requestPage: 1
 }
@@ -23,7 +22,7 @@ const slice = createSlice({
       builder
          .addCase(getUsersThunk.fulfilled, (state, action) => {
             state.data = action.payload.items
-            state.totalUsersCount = action.payload.totalCount
+            state.totalCount = action.payload.totalCount
             state.page = state.requestPage
          })
          .addCase(followThunk.fulfilled, (state, action) => {

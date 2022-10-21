@@ -28,9 +28,8 @@ const slice = createSlice({
         deletePost: (state, action: PayloadAction<string>) => {
             state.posts = state.posts.filter(el => el.id !== action.payload)
         },
-        setIsInitialized: (state, action) => {
-            state.isInitialized = action.payload
-        }
+        setIsInitialized: (state, action) => { state.isInitialized = action.payload },
+        setNotice: (state, action: PayloadAction<string>) => { state.notice = action.payload }
     },
     extraReducers: (builder) => {
         builder

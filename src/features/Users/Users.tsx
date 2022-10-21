@@ -32,7 +32,7 @@ export const Users = () => {
             <UsersPagination
                 onChange={onChangePage}
                 page={users.page}
-                totalUsersCount={users.totalUsersCount}
+                totalUsersCount={users.totalCount}
                 pageSize={users.pageSize}
             />
         </div>
