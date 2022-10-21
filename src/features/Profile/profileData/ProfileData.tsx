@@ -1,6 +1,6 @@
 import EditIcon from '@mui/icons-material/Edit';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { CustomProgress } from '../../../common/components/CustomProgress/CustomProgress';
@@ -8,9 +8,9 @@ import { selectAuthUserId, selectProfile } from '../../../common/selectors/selec
 import { useAppDispatch } from '../../../redux/redux-store';
 import { EditProfileModal } from '../editProfileModal/EditProfileModal';
 import { updateProfile } from '../profile-reducer';
-import Link from '@mui/material/Link';
-import './profileData.scss';
 import { ProfilePhoto } from './profilePhoto/ProfilePhoto';
+import './profileData.scss';
+import { Paper } from '@mui/material';
 export const ProfileData = () => {
     const dispatch = useAppDispatch()
     const { data, status, profileStatus } = useSelector(selectProfile)
@@ -35,7 +35,7 @@ export const ProfileData = () => {
     }
     if (status === 'pending') { return <CustomProgress /> }
     return (
-        <div className="profile-data">
+        <Paper elevation={3} className='profile-data' >
             <ProfilePhoto photo={data.photos.large} isOwner={isOwner} />
 
             <div className='profile-data__description description'>
@@ -78,6 +78,6 @@ export const ProfileData = () => {
                 onChangeAboutMe={setAboutMe}
                 onChangeContacts={setContacts}
             />
-        </div>
+        </Paper >
     )
 }

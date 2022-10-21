@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Paper } from '@mui/material';
 import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import usersDefaultPhoto from '../../../common/assets/usersImg.jpg';
@@ -14,7 +14,7 @@ export const User: FC<UserPropsType> = ({ id, name, followed, photos }) => {
       dispatch(followThunk(id))
    }
    return (
-      <div className='user'>
+      <Paper elevation={5} className='user'>
          <div className='user__imageBox'>
             <NavLink to={`/profile/${id}`}>
                <img
@@ -35,7 +35,7 @@ export const User: FC<UserPropsType> = ({ id, name, followed, photos }) => {
                   <Button color='success' onClick={follow}>Follow</Button>
             }
          </div>
-      </div>
+      </Paper>
    )
 }
 type UserPropsType = {
