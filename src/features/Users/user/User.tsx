@@ -31,8 +31,8 @@ export const User: FC<UserPropsType> = ({ id, name, followed, photos }) => {
             </div>
             {
                followed ?
-                  <Button color='error' onClick={unfollow}>Unfollow</Button> :
-                  <Button color='success' onClick={follow}>Follow</Button>
+                  <Button color='error' onClick={unfollow}>Отписаться</Button> :
+                  <Button color='success' onClick={follow}>Подписаться</Button>
             }
          </div>
       </Paper>
