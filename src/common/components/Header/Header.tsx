@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import { Button } from '@mui/material'
 import { useSelector } from "react-redux"
 import { NavLink, useLocation } from "react-router-dom"
-import { logoutThunk } from "../../../features/Login/auth-reducer"
+import { logout } from "../../../features/Login/auth-reducer"
 import { useAppDispatch } from "../../../redux/redux-store"
 import { appPath } from '../../routesPath/appPath'
 import { selectAppStatus, selectAuth } from "../../selectors/selectors"
@@ -16,8 +16,8 @@ export const Header = () => {
    const appStatus = useSelector(selectAppStatus)
    const auth = useSelector(selectAuth)
    const dispatch = useAppDispatch()
-   const logout = () => {
-      dispatch(logoutThunk())
+   const logoutHandler = () => {
+      dispatch(logout())
    }
    const getLocationText = (path: string) => {
       switch (path) {
@@ -39,7 +39,7 @@ export const Header = () => {
                      <Typography variant="h6" component="div" >
                         {getLocationText(location.pathname)}
                      </Typography>
-                     <Button disabled={appStatus === 'pending'} onClick={logout} size="large" component={NavLink} to={appPath.LOGIN} color="inherit" variant="text">
+                     <Button disabled={appStatus === 'pending'} onClick={logoutHandler} size="large" component={NavLink} to={appPath.LOGIN} color="inherit" variant="text">
                         Выйти
                      </Button>
                   </>

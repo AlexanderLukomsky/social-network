@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { authAPI, AuthResponseType, LoginRequestType } from '../../api/authAPI';
+import { authAPI, AuthResponseType, LoginRequestType, securityAPI } from '../../api/authAPI';
 import { AuthUserDataType } from '../../common/types/authTypes';
 import { ResultStatus } from '../../common/types/commonTypes';
 const initialState = {
     data: {} as AuthUserDataType,
-    isAuth: false
+    isAuth: false,
+    captchaUrl: null as null | string
 }
 const slice = createSlice({
     name: 'auth',
@@ -14,23 +15,30 @@ const slice = createSlice({
             state.data = action.payload
             state.isAuth = true
         },
+        setCaptchaUrl: (state, action: PayloadAction<string | null>) => {
+            state.captchaUrl = action.payload
+        }
     },
     extraReducers: (builder) => {
-        builder.addCase(authThunk.fulfilled, (state, action) => {
-            if (action.payload.resultCode === ResultStatus.OK) {
-                state.data = action.payload.data
-                state.isAuth = true
-            }
-        })
-        builder.addCase(logoutThunk.fulfilled, state => {
-            state.isAuth = false
-        })
+        builder
+            .addCase(authMe.fulfilled, (state, action) => {
+                if (action.payload.resultCode === ResultStatus.OK) {
+                    state.data = action.payload.data
+                    state.isAuth = true
+                }
+            })
+            .addCase(logout.fulfilled, state => {
+                state.isAuth = false
+            })
+            .addCase(getCaptchaUrl.fulfilled, (state, action) => {
+                state.captchaUrl = action.payload.url
+            })
     }
 })
 export const authReducer = slice.reducer
-export const { setAuthUserData } = slice.actions
+export const { setAuthUserData, setCaptchaUrl } = slice.actions
 
-export const authThunk = createAsyncThunk<AuthResponseType, undefined, { rejectValue: string }>(
+export const authMe = createAsyncThunk<AuthResponseType, undefined, { rejectValue: string }>(
     'auth/me',
     async (_, { rejectWithValue }) => {
         try {
@@ -41,7 +49,7 @@ export const authThunk = createAsyncThunk<AuthResponseType, undefined, { rejectV
         }
     }
 )
-export const logoutThunk = createAsyncThunk(
+export const logout = createAsyncThunk(
     'auth/logout',
     async (_, { rejectWithValue }) => {
         try {
@@ -51,18 +59,26 @@ export const logoutThunk = createAsyncThunk(
         }
     }
 )
-export const loginThunk = createAsyncThunk<unknown, LoginRequestType, { rejectValue: string }>(
+export const login = createAsyncThunk<unknown, LoginRequestType, { rejectValue: string }>(
     'auth/login',
     async (data, { rejectWithValue, dispatch }) => {
         try {
             const res = await authAPI.login(data)
             if (res.data.resultCode === ResultStatus.OK) {
-                const action = await dispatch(authThunk())
-                if (authThunk.rejected.match(action))
-                    throw new Error(action.payload)
+                dispatch(authMe())
+            } else if (res.data.resultCode === ResultStatus.ANTIBOTCAPTCHA) {
+                dispatch(getCaptchaUrl())
             }
+
         } catch {
             rejectWithValue('')
         }
+    }
+)
+export const getCaptchaUrl = createAsyncThunk(
+    'auth/get-captcha',
+    async () => {
+        const res = await securityAPI.getCaptcha()
+        return res.data
     }
 )
