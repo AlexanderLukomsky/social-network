@@ -3,22 +3,24 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { CustomProgress } from '../../common/components/CustomProgress/CustomProgress';
-import { CustomSnackbar } from '../../common/CustomSnackbar/CustomSnackbar';
-import { selectAuth, selectProfileIsInitialized, selectProfileNotice } from '../../common/selectors/selectors';
-import { useAppDispatch } from '../../redux/redux-store';
-
 import { Posts } from './posts/Posts';
 import { getProfile, getProfileStatus, setIsInitialized } from './profile-reducer';
-import './profile.scss';
 import { ProfileData } from './profileData/ProfileData';
 
+import { CustomProgress, CustomSnackbar } from 'common/components';
+import { selectAuth, selectProfileIsInitialized, selectProfileNotice } from 'common/selectors';
+import { useAppDispatch } from 'redux/redux-store';
+import './profile.scss';
+
 export const Profile = () => {
-  const isInitialized = useSelector(selectProfileIsInitialized);
+  const dispatch = useAppDispatch();
+
+  const { userId } = useParams<{ userId: string }>();
+
   const { isAuth, data } = useSelector(selectAuth);
   const notice = useSelector(selectProfileNotice);
-  const dispatch = useAppDispatch();
-  const { userId } = useParams<{ userId: string }>();
+  const isInitialized = useSelector(selectProfileIsInitialized);
+
   useEffect(() => {
     if (userId) {
       dispatch(getProfile(userId));
@@ -31,6 +33,7 @@ export const Profile = () => {
       dispatch(setIsInitialized(false));
     };
   }, [dispatch, userId, data.id, isAuth]);
+
   return (
     <div className="profile">
       {isInitialized ? (

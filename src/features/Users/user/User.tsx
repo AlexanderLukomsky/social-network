@@ -10,12 +10,15 @@ import './user.scss';
 
 export const User: FC<UserPropsType> = ({ id, name, followed, photos }) => {
   const dispatch = useAppDispatch();
+
   const unfollow = () => {
     dispatch(unfollowThunk(id));
   };
+
   const follow = () => {
     dispatch(followThunk(id));
   };
+
   return (
     <Paper elevation={5} className="user">
       <div className="user__imageBox">

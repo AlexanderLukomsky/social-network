@@ -12,13 +12,17 @@ import './users.scss';
 
 export const Users = () => {
   const dispatch = useAppDispatch();
+
   const users = useSelector(selectUsers);
-  const onChangePage = (page: number) => {
-    dispatch(requestChangePage(page));
-  };
+
   useEffect(() => {
     dispatch(getUsersThunk());
   }, [users.requestPage]);
+
+  const onChangePage = (page: number) => {
+    dispatch(requestChangePage(page));
+  };
+
   return (
     <div className="users">
       <div className="users__list">

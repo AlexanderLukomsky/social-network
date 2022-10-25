@@ -19,14 +19,17 @@ export const EditProfileModal: FC<EditProfileModalPropsType> = ({
   const [isNameError, setIsNameError] = useState(false);
   const [isAboutMeError, setIsAboutMeError] = useState(false);
   const [isGitError, setIsGitError] = useState(false);
+
   const onChangeFullNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setIsNameError(false);
     onChangeFullName(e.currentTarget.value);
   };
+
   const onChangeAboutMeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setIsAboutMeError(false);
     onChangeAboutMe(e.currentTarget.value);
   };
+
   const onChangeContactsHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setIsGitError(false);
     onChangeContacts({ github: e.currentTarget.value });
@@ -54,6 +57,7 @@ export const EditProfileModal: FC<EditProfileModalPropsType> = ({
 
     return isError;
   };
+
   const onSubmitHandler = () => {
     if (
       validate(
@@ -67,6 +71,7 @@ export const EditProfileModal: FC<EditProfileModalPropsType> = ({
       onSubmit();
     }
   };
+
   const onCancelHandler = () => {
     onClose();
   };

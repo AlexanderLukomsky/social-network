@@ -7,9 +7,11 @@ import './captcha.scss';
 
 export const Captcha: FC<CaptchaPropsType> = ({ onSubmit, captchaUrl, onChangeCaptcha, onClose }) => {
   const [value, setValue] = useState('');
+
   const onSubmitHandler = () => {
     onSubmit(value);
   };
+
   return (
     <div className="captcha-wrapper">
       <Paper className="captcha">

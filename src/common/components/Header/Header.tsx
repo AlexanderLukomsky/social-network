@@ -5,20 +5,20 @@ import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { logout } from '../../../features/login/auth-reducer';
-import { useAppDispatch } from '../../../redux/redux-store';
-import { appPath } from '../../routesPath/appPath';
-import { selectAppStatus, selectAuth } from '../../selectors/selectors';
+import { appPath } from 'common/routesPath';
+import { selectAppStatus, selectAuth } from 'common/selectors';
+import { logout } from 'features/login/auth-reducer';
+import { useAppDispatch } from 'redux/redux-store';
 import './header.scss';
 
 export const Header = () => {
+  const dispatch = useAppDispatch();
+
   const location = useLocation();
+
   const appStatus = useSelector(selectAppStatus);
   const auth = useSelector(selectAuth);
-  const dispatch = useAppDispatch();
-  const logoutHandler = () => {
-    dispatch(logout());
-  };
+
   const getLocationText = (path: string) => {
     switch (path) {
       case appPath.PROFILE:
@@ -37,6 +37,11 @@ export const Header = () => {
         return '';
     }
   };
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <AppBar className="header">
       <Toolbar>

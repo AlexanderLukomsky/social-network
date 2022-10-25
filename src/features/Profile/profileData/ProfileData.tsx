@@ -6,30 +6,34 @@ import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import { useSelector } from 'react-redux';
 
-import { CustomProgress } from '../../../common/components/CustomProgress/CustomProgress';
-import { selectAuthUserId, selectProfile } from '../../../common/selectors/selectors';
-import { useAppDispatch } from '../../../redux/redux-store';
 import { EditProfileModal } from '../editProfileModal/EditProfileModal';
 import { updateProfile } from '../profile-reducer';
 
 import { ProfilePhoto } from './profilePhoto/ProfilePhoto';
 
+import { CustomProgress } from 'common/components/custom-progress/CustomProgress';
+import { selectAuthUserId, selectProfile } from 'common/selectors/selectors';
+import { useAppDispatch } from 'redux/redux-store';
+
 import './profileData.scss';
 
 export const ProfileData = () => {
   const dispatch = useAppDispatch();
+
   const { data, status, profileStatus } = useSelector(selectProfile);
   const authId = useSelector(selectAuthUserId);
-  const isOwner = data.userId === authId;
 
   const [isOpenModal, setIsOpenModal] = useState(false);
-
   const [fullName, setFullName] = useState(data.fullName);
   const [aboutMe, setAboutMe] = useState(data.aboutMe);
   const [contacts, setContacts] = useState({ github: data.contacts.github });
+
+  const isOwner = data.userId === authId;
+
   const onCloseModalHandler = () => {
     setIsOpenModal(false);
   };
+
   const onOpenModalHandler = () => {
     setIsOpenModal(true);
   };
@@ -43,9 +47,11 @@ export const ProfileData = () => {
     };
     dispatch(updateProfile(newData));
   };
+
   if (status === 'pending') {
     return <CustomProgress />;
   }
+
   return (
     <Paper elevation={3} className="profile-data">
       <ProfilePhoto photo={data.photos.large} isOwner={isOwner} />

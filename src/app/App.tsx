@@ -13,11 +13,14 @@ import { selectAppIsInitialized } from 'common/selectors';
 import { Sidebar } from 'features';
 
 export function App() {
-  const isInitialized = useSelector(selectAppIsInitialized);
   const dispatch = useAppDispatch();
+
+  const isInitialized = useSelector(selectAppIsInitialized);
+
   useEffect(() => {
     dispatch(initializeApp());
   }, [dispatch]);
+
   return (
     <div className="app">
       <div className="container">

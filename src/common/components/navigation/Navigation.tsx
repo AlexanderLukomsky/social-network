@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-import { appPath } from '../../routesPath/appPath';
+import { appPath } from 'common/routesPath';
 
 export const Navigation = () => (
   <ul className="nav-list">
