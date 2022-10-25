@@ -8,9 +8,9 @@ import { useAppDispatch } from '../../redux/redux-store';
 
 import { getCaptchaUrl, login, setCaptchaUrl } from './auth-reducer';
 import './login.scss';
-import { LoginForm } from './LoginForm/LoginForm';
+import { LoginForm } from './loogin-form/LoginForm';
 
-export const LoginPage = () => {
+export const Login = () => {
   const { isAuth, captchaUrl } = useSelector(selectAuth);
   const dispatch = useAppDispatch();
   const loginHandler = async (formData: LoginRequestType) => {

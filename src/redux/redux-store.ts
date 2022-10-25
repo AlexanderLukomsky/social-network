@@ -3,8 +3,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AnyAction, combineReducers } from 'redux';
 
 import { appReducer } from '../app/app-reducer';
-import { dialogsReducer } from '../features/Dialogs/dialogs-reducer';
-import { authReducer } from '../features/Login/auth-reducer';
+import { dialogsReducer } from '../features/dialogs/dialogs-reducer';
+import { authReducer } from '../features/login/auth-reducer';
 import { profileReducer } from '../features/profile/profile-reducer';
 import { usersReducer } from '../features/users/user-reducer';
 

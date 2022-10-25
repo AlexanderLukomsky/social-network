@@ -53,7 +53,8 @@ export const authMe = createAsyncThunk<AuthResponseType, undefined, { rejectValu
 );
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
-    await authAPI.logout();
+    const res = await authAPI.logout();
+    return res.data.data;
   } catch {
     return rejectWithValue('');
   }

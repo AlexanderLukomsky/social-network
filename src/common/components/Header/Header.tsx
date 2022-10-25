@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { logout } from '../../../features/Login/auth-reducer';
+import { logout } from '../../../features/login/auth-reducer';
 import { useAppDispatch } from '../../../redux/redux-store';
 import { appPath } from '../../routesPath/appPath';
 import { selectAppStatus, selectAuth } from '../../selectors/selectors';

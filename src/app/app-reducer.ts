@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { authAPI } from '../api/authAPI';
 import { ResultStatus, StatusesTypes } from '../common/types/commonTypes';
-import { setAuthUserData } from '../features/Login/auth-reducer';
+import { setAuthUserData } from '../features/login/auth-reducer';
 
 const slice = createSlice({
   name: 'app',
@@ -39,6 +39,7 @@ export const initializeApp = createAsyncThunk('app/initialized', async (_, { rej
     if (res.data.resultCode === ResultStatus.OK) {
       dispatch(setAuthUserData(res.data.data));
     }
+    return res.data.data;
   } catch (e) {
     return rejectWithValue('');
   }

@@ -2,15 +2,15 @@ import { useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { Footer } from '../common/components/Footer/Footer';
-import { Header } from '../common/components/Header/Header';
-import { AppRoutes } from '../common/routes/AppRoutes';
-import { selectAppIsInitialized } from '../common/selectors/selectors';
-import { Sidebar } from '../features/Sidebar/Sidebar';
 import { useAppDispatch } from '../redux/redux-store';
 
 import { initializeApp } from './app-reducer';
+
+import { Footer, Header } from 'common/components';
+import { AppRoutes } from 'common/routes';
 import './app.scss';
+import { selectAppIsInitialized } from 'common/selectors';
+import { Sidebar } from 'features';
 
 export function App() {
   const isInitialized = useSelector(selectAppIsInitialized);

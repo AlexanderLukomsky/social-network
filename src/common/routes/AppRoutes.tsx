@@ -2,15 +2,11 @@ import React from 'react';
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { LoginPage } from '../../features/Login/Login';
-import { Music } from '../../features/Music/Music';
-import { News } from '../../features/News/News';
-import { Profile } from '../../features/profile/Profile';
-import { Users } from '../../features/users/Users';
-import { appPath } from '../routesPath/appPath';
+import { appPath } from 'common/routesPath';
+import { Login, Music, News, Profile, Users } from 'features';
 
-const Settings = React.lazy(async () => ({ default: (await import('../../features/Settings/Settings')).Settings }));
-const Dialogs = React.lazy(async () => ({ default: (await import('../../features/Dialogs/Dialogs')).Dialogs }));
+const Settings = React.lazy(async () => ({ default: (await import('features')).Settings }));
+const Dialogs = React.lazy(async () => ({ default: (await import('features')).Dialogs }));
 export const AppRoutes = () => (
   <Routes>
     <Route path={`${appPath.PROFILE}/:userId`} element={<Profile />} />
@@ -35,6 +31,6 @@ export const AppRoutes = () => (
       }
     />
     <Route path="/" element={<Navigate replace to="/profile" />} />
-    <Route path={appPath.LOGIN} element={<LoginPage />} />
+    <Route path={appPath.LOGIN} element={<Login />} />
   </Routes>
 );

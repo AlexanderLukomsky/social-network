@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux';
 import { selectUsers } from '../../common/selectors/selectors';
 import { useAppDispatch } from '../../redux/redux-store';
 
+import { User } from './user';
 import { requestChangePage, getUsersThunk } from './user-reducer';
-import { User } from './user/User';
+import { UsersPagination } from './usersPagination';
 import './users.scss';
-import { UsersPagination } from './usersPagination/UsersPagination';
 
 export const Users = () => {
   const dispatch = useAppDispatch();
