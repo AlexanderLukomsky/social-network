@@ -16,7 +16,7 @@ export const Captcha: FC<CaptchaPropsType> = ({ onSubmit, captchaUrl, onChangeCa
         <button className="captcha__close" type="button" onClick={onClose}>
           <HighlightOffIcon color="error" />
         </button>
-        <div className="captcha__imageBox" onClick={onChangeCaptcha}>
+        <div role="presentation" className="captcha__imageBox" onClick={onChangeCaptcha}>
           <img src={captchaUrl} alt="captcha" />
         </div>
         <TextField
@@ -29,7 +29,7 @@ export const Captcha: FC<CaptchaPropsType> = ({ onSubmit, captchaUrl, onChangeCa
           Отправить
         </Button>
       </Paper>
-      <div className="captcha-overlay" onClick={onClose} />
+      <div role="presentation" className="captcha-overlay" onClick={onClose} />
     </div>
   );
 };
