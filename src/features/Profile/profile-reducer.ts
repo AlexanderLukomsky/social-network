@@ -3,12 +3,13 @@ import { v1 } from 'uuid';
 
 import { profileAPI, UpdateProfileRequestType } from '../../api/profileAPI';
 import { setAppStatus } from '../../app/app-reducer';
+import { Nullable } from '../../common/types';
 import { ResultStatus, StatusesTypes } from '../../common/types/commonTypes';
 import { ProfileType } from '../../common/types/profileTypes';
 
 const initialState = {
   data: {} as ProfileType,
-  profileStatus: null as null | string,
+  profileStatus: null as Nullable<string>,
   isInitialized: false,
   posts: [
     { id: v1(), message: 'message-1', likesCount: 5 },
@@ -103,6 +104,7 @@ export const updateProfile = createAsyncThunk(
       if (res.data.resultCode === ResultStatus.OK) {
         dispatch(getProfile(profile.userId.toString()));
       }
+      return res.data;
     } catch {
       return rejectWithValue('');
     }

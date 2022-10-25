@@ -1,8 +1,9 @@
 import { StatusesTypes } from './commonTypes';
+import { Nullable } from './Nullable';
 
 export type ProfileStateType = {
   data: ProfileType;
-  profileStatus: string | null;
+  profileStatus: Nullable<string>;
   isInitialized: false;
   posts: PostType[];
   status: StatusesTypes;
@@ -13,7 +14,7 @@ export type ProfileType = {
   contacts: ContactsType<StringOrNull>;
   fullName: string;
   lookingForAJob: boolean;
-  lookingForAJobDescription: string | null;
+  lookingForAJobDescription: Nullable<string>;
   photos: ProfilePhotosType;
   userId: number;
 };
@@ -27,9 +28,9 @@ type ContactsType<T> = {
   github: T;
   mainLink: T;
 };
-type StringOrNull = string | null;
+type StringOrNull = Nullable<string>;
 type PostType = { id: string; message: string; likesCount: number };
 export type ProfilePhotosType = {
-  small: string | null;
-  large: string | null;
+  small: Nullable<string>;
+  large: Nullable<string>;
 };

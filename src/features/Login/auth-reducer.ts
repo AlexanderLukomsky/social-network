@@ -4,10 +4,12 @@ import { authAPI, AuthResponseType, LoginRequestType, securityAPI } from '../../
 import { AuthUserDataType } from '../../common/types/authTypes';
 import { ResultStatus } from '../../common/types/commonTypes';
 
+import { Nullable } from 'common/types';
+
 const initialState = {
   data: {} as AuthUserDataType,
   isAuth: false,
-  captchaUrl: null as null | string,
+  captchaUrl: null as Nullable<string>,
 };
 const slice = createSlice({
   name: 'auth',
