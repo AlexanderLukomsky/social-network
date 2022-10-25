@@ -1,13 +1,6 @@
-import { FC } from "react"
+import { FC } from 'react';
 
-export const ProfileStatus: FC<ProfileStatusPropsType> = ({ profileStatus }) => {
-
-   return (
-      <div>
-         {profileStatus}
-      </div>
-   )
-}
+export const ProfileStatus: FC<ProfileStatusPropsType> = ({ profileStatus }) => <div>{profileStatus}</div>;
 type ProfileStatusPropsType = {
-   profileStatus: string | null
-}
+  profileStatus: string | null;
+};

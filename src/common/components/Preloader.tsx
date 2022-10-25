@@ -1,8 +1,3 @@
-import spinner from '../assets/spinner.svg'
-export const Preloader = () => {
-    return (
-        <>
-            <img src={spinner} alt='preloader' />
-        </>
-    )
-}
+import spinner from '../assets/spinner.svg';
+
+export const Preloader = () => <img src={spinner} alt="preloader" />;

@@ -1,8 +1,1 @@
-
-export const Settings = () => {
-    return (
-        <div>
-            Settings
-        </div>
-    )
-}
+export const Settings = () => <div>Settings</div>;

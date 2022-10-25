@@ -1,9 +1,9 @@
 export enum appPath {
-   PROFILE = '/profile',
-   DIALOGS = '/dialogs',
-   USERS = '/users',
-   NEWS = '/news',
-   MUSIC = '/music',
-   SETTINGS = '/settings',
-   LOGIN = '/login'
+  PROFILE = '/profile',
+  DIALOGS = '/dialogs',
+  USERS = '/users',
+  NEWS = '/news',
+  MUSIC = '/music',
+  SETTINGS = '/settings',
+  LOGIN = '/login',
 }

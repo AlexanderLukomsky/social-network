@@ -1,8 +1,1 @@
-
-export const News = () => {
-    return (
-        <div>
-            News
-        </div>
-    )
-}
+export const News = () => <div>News</div>;
