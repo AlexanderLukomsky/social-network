@@ -10,6 +10,24 @@
             font-weight: 500;
             margin-bottom: 10px;
          }
+         &__text {
+            padding: 10px 0;
+         }
+      }
+   }
+   &__links {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px 0;
+      .links {
+         &__email {
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 0.875rem;
+            line-height: 1.75;
+            text-transform: uppercase;
+            color: #1976d2;
+         }
       }
    }
 }

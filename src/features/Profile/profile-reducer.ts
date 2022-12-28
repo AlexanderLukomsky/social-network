@@ -109,6 +109,10 @@ export const updateProfile = createAsyncThunk(
       const res = await profileAPI.updateProfile(profile);
       if (res.data.resultCode === ResultStatus.OK) {
         dispatch(getProfile(profile.userId.toString()));
+        return res.data;
+      }
+      if (res.data.resultCode === ResultStatus.FAILED) {
+        return rejectWithValue('');
       }
       return res.data;
     } catch {

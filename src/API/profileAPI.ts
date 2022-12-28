@@ -3,6 +3,8 @@ import { ProfilePhotosType, ProfileType } from '../common/types/profileTypes';
 import { instance } from './instance/instance';
 import { CommonResponseType } from './types/CommonAPITypes';
 
+import { Nullable } from 'common/types';
+
 const plug = {
   LookingForAJobDescriptionL: 'React',
   LookingForAJobDescription: true,
@@ -12,7 +14,7 @@ export const profileAPI = {
     return instance.get<ProfileType>(`profile/${userId || '19615'}`);
   },
   getStatus(userID: string) {
-    return instance.get<string | null>(`profile/status/${userID}`);
+    return instance.get<Nullable<string>>(`profile/status/${userID}`);
   },
   updateProfile(data: UpdateProfileRequestType) {
     return instance.put<UpdateProfileResponseType>('profile', { ...data, ...plug });
@@ -40,5 +42,9 @@ type UpdatePhotoResponseType = {
   data: { photos: ProfilePhotosType };
 } & CommonResponseType;
 export type UpdateProfileRequestType = {
-  contacts: { github: string | null };
+  contacts: {
+    github: Nullable<string>;
+    website: Nullable<string>;
+    mainLink: Nullable<string>;
+  };
 } & Pick<ProfileType, 'userId' | 'fullName' | 'aboutMe'>;

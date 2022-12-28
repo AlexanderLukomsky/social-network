@@ -9,7 +9,6 @@ import { selectProfilePosts } from 'common/selectors';
 
 export const Posts = () => {
   const posts = useSelector(selectProfilePosts);
-
   return (
     <div>
       <AddPost />

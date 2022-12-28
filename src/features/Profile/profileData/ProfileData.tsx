@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 
 import EditIcon from '@mui/icons-material/Edit';
 import { Paper } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
 import { useSelector } from 'react-redux';
 
 import { EditProfileModal } from '../editProfileModal/EditProfileModal';
+import { ProfileLink, ProfileLinkPropsType } from '../profile-links/ProfileLinks';
 import { updateProfile } from '../profile-reducer';
 
 import { ProfilePhoto } from './profilePhoto/ProfilePhoto';
@@ -17,18 +17,22 @@ import { useAppDispatch } from 'redux/redux-store';
 
 import './profileData.scss';
 
-export const ProfileData = () => {
+export const ProfileData: FC<ProfileDataPropsType> = ({ isOwner }) => {
   const dispatch = useAppDispatch();
 
   const { data, status, profileStatus } = useSelector(selectProfile);
   const authId = useSelector(selectAuthUserId);
-
+  const { github } = data.contacts;
+  const { mainLink } = data.contacts;
+  const { website } = data.contacts;
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [fullName, setFullName] = useState(data.fullName);
   const [aboutMe, setAboutMe] = useState(data.aboutMe);
-  const [contacts, setContacts] = useState({ github: data.contacts.github });
-
-  const isOwner = data.userId === authId;
+  const [contacts, setContacts] = useState({
+    github,
+    website,
+    mainLink,
+  });
 
   const onCloseModalHandler = () => {
     setIsOpenModal(false);
@@ -38,20 +42,31 @@ export const ProfileData = () => {
     setIsOpenModal(true);
   };
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = async () => {
+    const newContacts = {
+      github: contacts.github ? contacts.github.trim() : null,
+      website: contacts.website ? contacts.website.trim() : null,
+      mainLink: contacts.mainLink ? contacts.mainLink.trim() : null,
+    };
     const newData = {
       fullName,
       aboutMe,
-      contacts,
+      contacts: newContacts,
       userId: authId,
     };
-    dispatch(updateProfile(newData));
+    const action = await dispatch(updateProfile(newData));
+    if (updateProfile.fulfilled.match(action)) {
+      setIsOpenModal(false);
+    }
   };
 
   if (status === 'pending') {
     return <CustomProgress />;
   }
-
+  const profileLinksProps: ProfileLinkPropsType = {};
+  if (github) profileLinksProps.github = { path: github, title: 'Github' };
+  if (website) profileLinksProps.website = { path: website, title: 'Portfolio' };
+  if (mainLink) profileLinksProps.mainLink = { path: mainLink, title: mainLink };
   return (
     <Paper elevation={3} className="profile-data">
       <ProfilePhoto photo={data.photos.large} isOwner={isOwner} />
@@ -67,10 +82,13 @@ export const ProfileData = () => {
         </h4>
         {profileStatus && <div>{profileStatus}</div>}
         {data.aboutMe && <div className="description__text">{data.aboutMe}</div>}
-        {isOwner && data.contacts.github && (
-          <Link target="_blank" href={data.contacts.github}>
-            Github
-          </Link>
+
+        {isOwner && (
+          <ProfileLink
+            github={profileLinksProps.github}
+            mainLink={profileLinksProps.mainLink}
+            website={profileLinksProps.website}
+          />
         )}
       </div>
       <EditProfileModal
@@ -86,4 +104,8 @@ export const ProfileData = () => {
       />
     </Paper>
   );
+};
+
+type ProfileDataPropsType = {
+  isOwner: boolean;
 };

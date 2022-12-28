@@ -11,7 +11,7 @@ export type ProfileStateType = {
 };
 export type ProfileType = {
   aboutMe: string | null;
-  contacts: ContactsType<StringOrNull>;
+  contacts: ContactsType<Nullable<string>>;
   fullName: string;
   lookingForAJob: boolean;
   lookingForAJobDescription: Nullable<string>;
@@ -28,7 +28,7 @@ type ContactsType<T> = {
   github: T;
   mainLink: T;
 };
-type StringOrNull = Nullable<string>;
+
 type PostType = { id: string; message: string; likesCount: number };
 export type ProfilePhotosType = {
   small: Nullable<string>;

@@ -12,6 +12,7 @@ import { appPath } from 'common/routesPath';
 import {
   selectAuthData,
   selectIsAuth,
+  selectProfile,
   selectProfileIsInitialized,
   selectProfileNotice,
 } from 'common/selectors';
@@ -23,22 +24,25 @@ export const Profile = () => {
 
   const { userId } = useParams<{ userId: string }>();
   const isAuth = useSelector(selectIsAuth);
-  const data = useSelector(selectAuthData);
+  const authData = useSelector(selectAuthData);
   const notice = useSelector(selectProfileNotice);
   const isInitialized = useSelector(selectProfileIsInitialized);
+
+  const profile = useSelector(selectProfile);
+  const isOwner = profile.data.userId === authData.id;
 
   useEffect(() => {
     if (userId) {
       dispatch(getProfile(userId));
       dispatch(getProfileStatus(userId));
-    } else if (isAuth && data.id) {
-      dispatch(getProfile(data.id.toString()));
-      dispatch(getProfileStatus(data.id.toString()));
+    } else if (isAuth && authData.id) {
+      dispatch(getProfile(authData.id.toString()));
+      dispatch(getProfileStatus(authData.id.toString()));
     }
     return () => {
       dispatch(setIsInitialized(false));
     };
-  }, [dispatch, userId, data.id, isAuth]);
+  }, [dispatch, userId, authData.id, isAuth]);
 
   if (!isAuth) return <Navigate to={appPath.LOGIN} />;
 
@@ -46,8 +50,8 @@ export const Profile = () => {
     <div className="profile">
       {isInitialized ? (
         <>
-          <ProfileData />
-          <Posts />
+          <ProfileData isOwner={isOwner} />
+          {isOwner && <Posts />}
           <CustomSnackbar message={notice} isOpen={!!notice} onClose={() => {}} />
         </>
       ) : (

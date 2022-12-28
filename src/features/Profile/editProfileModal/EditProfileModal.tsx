@@ -3,7 +3,10 @@ import { useState, FC, ChangeEvent } from 'react';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+
 import './editProfileModal.scss';
+import { Nullable } from 'common/types';
+import { ErrorsType, validateProfile } from 'common/utils/validateProfile';
 
 export const EditProfileModal: FC<EditProfileModalPropsType> = ({
   isOpen,
@@ -16,61 +19,51 @@ export const EditProfileModal: FC<EditProfileModalPropsType> = ({
   onChangeAboutMe,
   onChangeContacts,
 }) => {
-  const [isNameError, setIsNameError] = useState(false);
-  const [isAboutMeError, setIsAboutMeError] = useState(false);
-  const [isGitError, setIsGitError] = useState(false);
+  const [errors, setErrors] = useState<Partial<ErrorsType>>({});
 
   const onChangeFullNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsNameError(false);
+    setErrors(state => ({ ...state, fullName: false }));
     onChangeFullName(e.currentTarget.value);
   };
 
   const onChangeAboutMeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsAboutMeError(false);
+    setErrors(state => ({ ...state, aboutMe: false }));
     onChangeAboutMe(e.currentTarget.value);
   };
 
-  const onChangeContactsHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsGitError(false);
-    onChangeContacts({ github: e.currentTarget.value });
+  const handleGitChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setErrors(state => ({ ...state, github: false }));
+    const github = e.currentTarget.value;
+    onChangeContacts({ ...contacts, github });
   };
 
-  const validate = (
-    data: { [key: string]: { value: string; errorHandler: (isError: boolean) => void } },
-    github: { value: string | null; errorHandler: (isError: boolean) => void },
-  ) => {
-    let isError = true;
-    Object.keys(data).forEach(key => {
-      if (!data[key].value.trim()) {
-        data[key].errorHandler(true);
-        isError = false;
-      }
-    });
-    /* eslint-disable no-useless-escape */
-    if (github.value !== null) {
-      const re =
-        /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi;
-      if (!re.test(github.value)) {
-        github.errorHandler(true);
-        isError = false;
-      }
-    }
-
-    return isError;
+  const handleWebsiteChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setErrors(state => ({ ...state, website: false }));
+    const website = e.currentTarget.value;
+    onChangeContacts({ ...contacts, website });
   };
 
-  const onSubmitHandler = () => {
-    if (
-      validate(
-        {
-          fullName: { value: fullName, errorHandler: setIsNameError },
-          aboutMe: { value: aboutMe, errorHandler: setIsAboutMeError },
-        },
-        { value: contacts.github, errorHandler: setIsGitError },
-      )
-    ) {
-      onSubmit();
+  const handleMainChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setErrors(state => ({ ...state, mainLink: false }));
+    const mainLink = e.currentTarget.value;
+    onChangeContacts({ ...contacts, mainLink });
+  };
+
+  const handleSubmitClick = () => {
+    const data = {
+      fullName,
+      aboutMe,
+      github: contacts.github,
+      mainLink: contacts.mainLink,
+      website: contacts.website,
+    };
+    const validationErrors = validateProfile(data);
+
+    if (Object.keys(validationErrors).length) {
+      setErrors(validationErrors);
+      return;
     }
+    onSubmit();
   };
 
   const onCancelHandler = () => {
@@ -82,32 +75,46 @@ export const EditProfileModal: FC<EditProfileModalPropsType> = ({
       <div className="edit-profile-modal">
         <div className="edit-profile-modal__body">
           <TextField
-            label={isNameError ? 'Обязательно' : 'Имя'}
+            label={errors.fullName ? 'Обязательно' : 'Имя'}
             variant="standard"
             value={fullName}
             onChange={onChangeFullNameHandler}
-            error={isNameError}
+            error={errors.fullName}
           />
           <TextField
-            label={isAboutMeError ? 'Обязательно' : 'О себе'}
+            label={errors.aboutMe ? 'Обязательно' : 'О себе'}
             variant="standard"
             value={aboutMe === null ? '' : aboutMe}
             onChange={onChangeAboutMeHandler}
-            error={isAboutMeError}
+            error={errors.aboutMe}
           />
           <TextField
-            label="Ссылка"
+            label={errors.github ? 'Некорректное значение' : 'GitHub'}
             variant="standard"
             value={contacts.github === null ? '' : contacts.github}
-            onChange={onChangeContactsHandler}
-            error={isGitError}
+            onChange={handleGitChange}
+            error={errors.github}
+          />
+          <TextField
+            label={errors.website ? 'Некорректное значение' : 'Website'}
+            variant="standard"
+            value={contacts.website === null ? '' : contacts.website}
+            onChange={handleWebsiteChange}
+            error={errors.website}
+          />
+          <TextField
+            label={errors.mainLink ? 'Некорректное значение' : 'MainLink'}
+            variant="standard"
+            value={contacts.mainLink === null ? '' : contacts.mainLink}
+            onChange={handleMainChange}
+            error={errors.mainLink}
           />
         </div>
         <div className="edit-profile-modal__buttons">
           <Button color="error" variant="outlined" onClick={onCancelHandler}>
             Отменить
           </Button>
-          <Button color="success" variant="outlined" onClick={onSubmitHandler}>
+          <Button color="success" variant="outlined" onClick={handleSubmitClick}>
             Сохранить
           </Button>
         </div>
@@ -121,10 +128,18 @@ type EditProfileModalPropsType = {
   onSubmit: () => void;
   fullName: string;
   aboutMe: string;
-  contacts: { github: string | null };
+  contacts: {
+    github: Nullable<string>;
+    website: Nullable<string>;
+    mainLink: Nullable<string>;
+  };
   onChangeFullName: (value: string) => void;
   onChangeAboutMe: (value: string) => void;
-  onChangeContacts: (contacts: { github: string }) => void;
+  onChangeContacts: (contacts: {
+    github: Nullable<string>;
+    mainLink: Nullable<string>;
+    website: Nullable<string>;
+  }) => void;
 };
 
 // Alex
