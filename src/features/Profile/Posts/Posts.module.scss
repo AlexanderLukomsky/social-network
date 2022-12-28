@@ -1,4 +1,27 @@
 .posts {
-    border: 1px solid #000;
+    padding: 15px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item {
     padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.new_post {
+    padding-bottom: 10px;
+    .new_post_form {
+        margin-bottom: 10px;
+    }
+    .new_post_button {
+        display: block;
+        margin-left: auto;
+    }
 }
