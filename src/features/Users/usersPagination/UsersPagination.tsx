@@ -3,7 +3,12 @@ import { FC, ChangeEvent } from 'react';
 import { Pagination } from '@mui/material';
 import './usersPagination.scss';
 
-export const UsersPagination: FC<UsersPaginationPropsType> = ({ totalUsersCount, pageSize, page, onChange }) => {
+export const UsersPagination: FC<UsersPaginationPropsType> = ({
+  totalUsersCount,
+  pageSize,
+  page,
+  onChange,
+}) => {
   const totalPagesCount = Math.ceil(totalUsersCount / pageSize);
 
   const onChangeHandler = (event: ChangeEvent<unknown>, currentPage: number) => {
@@ -12,7 +17,13 @@ export const UsersPagination: FC<UsersPaginationPropsType> = ({ totalUsersCount,
 
   return (
     <div className="users-pagination">
-      <Pagination onChange={onChangeHandler} page={page} count={totalPagesCount} variant="outlined" shape="rounded" />
+      <Pagination
+        onChange={onChangeHandler}
+        page={page}
+        count={totalPagesCount}
+        variant="outlined"
+        shape="rounded"
+      />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { selectUsers } from '../../common/selectors/selectors';
+import { selectIsAuth, selectUsers } from '../../common/selectors/selectors';
 import { useAppDispatch } from '../../redux/redux-store';
 
 import { User } from './user';
@@ -14,7 +14,7 @@ export const Users = () => {
   const dispatch = useAppDispatch();
 
   const users = useSelector(selectUsers);
-
+  const isAuth = useSelector(selectIsAuth);
   useEffect(() => {
     dispatch(getUsersThunk());
   }, [users.requestPage]);
@@ -27,7 +27,14 @@ export const Users = () => {
     <div className="users">
       <div className="users__list">
         {users.data.map(u => (
-          <User key={u.id} id={u.id} name={u.name} followed={u.followed} photos={u.photos} />
+          <User
+            isAuth={isAuth}
+            key={u.id}
+            id={u.id}
+            name={u.name}
+            followed={u.followed}
+            photos={u.photos}
+          />
         ))}
       </div>
       <UsersPagination

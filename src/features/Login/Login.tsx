@@ -2,36 +2,43 @@ import { Paper } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { LoginRequestType } from '../../api/authAPI';
-import { selectAuth } from '../../common/selectors/selectors';
 import { useAppDispatch } from '../../redux/redux-store';
 
 import { getCaptchaUrl, login, setCaptchaUrl } from './auth-reducer';
 import './login.scss';
 import { LoginForm } from './loogin-form/LoginForm';
 
+import { LoginRequestType } from 'api/auth/types/AuthAPITypes';
+import { selectCaptchaUrl, selectIsAuth } from 'common/selectors';
+
 export const Login = () => {
-  const { isAuth, captchaUrl } = useSelector(selectAuth);
   const dispatch = useAppDispatch();
-  const loginHandler = async (formData: LoginRequestType) => {
+
+  const isAuth = useSelector(selectIsAuth);
+  const captchaUrl = useSelector(selectCaptchaUrl);
+  const handleSubmitFormClick = async (formData: LoginRequestType) => {
     dispatch(login(formData));
   };
-  const onChangeCaptchaHandler = () => {
+
+  const handleGetCaptchaClick = () => {
     dispatch(getCaptchaUrl());
   };
-  const onCloseHandler = () => {
+
+  const handleCloseCaptchaClick = () => {
     dispatch(setCaptchaUrl(null));
   };
+
   if (isAuth) {
     return <Navigate replace to="/profile" />;
   }
+
   return (
     <Paper elevation={3} className="login">
       <LoginForm
-        onSubmit={loginHandler}
+        onSubmitFormClick={handleSubmitFormClick}
         captchaUrl={captchaUrl}
-        onChangeCaptcha={onChangeCaptchaHandler}
-        onClose={onCloseHandler}
+        onGetCaptchaClick={handleGetCaptchaClick}
+        onCloseCaptchaClick={handleCloseCaptchaClick}
       />
     </Paper>
   );

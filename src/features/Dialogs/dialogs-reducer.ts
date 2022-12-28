@@ -34,10 +34,16 @@ const dialogsPage: DialogsPageType = {
     { id: v1(), message: 'Message 4' },
   ],
 };
-export const dialogsReducer = (state: DialogsPageType = dialogsPage, action: DialogsActionType) => {
+export const dialogsReducer = (
+  state: DialogsPageType = dialogsPage,
+  action: DialogsActionType,
+) => {
   switch (action.type) {
     case 'ADD-MESSAGE':
-      return { ...state, messages: [{ id: v1(), message: action.payload.message }, ...state.messages] };
+      return {
+        ...state,
+        messages: [{ id: v1(), message: action.payload.message }, ...state.messages],
+      };
     default:
       return state;
   }

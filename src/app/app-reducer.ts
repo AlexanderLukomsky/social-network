@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { authAPI } from '../api/authAPI';
-import { ResultStatus, StatusesTypes } from '../common/types/commonTypes';
 import { setAuthUserData } from '../features/login/auth-reducer';
+
+import { auth } from 'api/auth';
+import { ResultStatus } from 'api/types/CommonAPITypes';
+import { StatusesTypes } from 'common/types/commonTypes';
 
 const slice = createSlice({
   name: 'app',
@@ -33,14 +35,17 @@ const slice = createSlice({
 
 export const appReducer = slice.reducer;
 export const { setAppStatus } = slice.actions;
-export const initializeApp = createAsyncThunk('app/initialized', async (_, { rejectWithValue, dispatch }) => {
-  try {
-    const res = await authAPI.me();
-    if (res.data.resultCode === ResultStatus.OK) {
-      dispatch(setAuthUserData(res.data.data));
+export const initializeApp = createAsyncThunk(
+  'app/initialized',
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      const res = await auth.me();
+      if (res.data.resultCode === ResultStatus.OK) {
+        dispatch(setAuthUserData(res.data.data));
+      }
+      return res.data.data;
+    } catch (e) {
+      return rejectWithValue('');
     }
-    return res.data.data;
-  } catch (e) {
-    return rejectWithValue('');
-  }
-});
+  },
+);

@@ -20,6 +20,7 @@
     "no-alert": "error",
     "no-plusplus": "off",
     "no-debugger": "error",
+    "no-magic-numbers": "warn",
     "no-unused-vars": "off",
     "no-use-before-define": "off",
     "no-underscore-dangle": "off",
@@ -46,7 +47,6 @@
     "react/prop-types": 0,
     "react/display-name": "off",
     "react/jsx-uses-react": "off",
-    "react/jsx-props-no-spreading": "off",
     "react/react-in-jsx-scope": "off",
     "react/destructuring-assignment": "off",
     "react/jsx-filename-extension": [

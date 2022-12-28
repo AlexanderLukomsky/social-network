@@ -4,7 +4,10 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { IconButton } from '@mui/material';
 import './uploadPhotoButton.scss';
 
-export const UploadPhotoButton: FC<UploadPhotoButtonPropsType> = ({ errorHandler, successHandler }) => {
+export const UploadPhotoButton: FC<UploadPhotoButtonPropsType> = ({
+  errorHandler,
+  successHandler,
+}) => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const photo = e.target.files[0];

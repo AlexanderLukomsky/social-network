@@ -20,7 +20,12 @@ export const ProfilePhoto: FC<ProfilePhotoPropsType> = ({ photo, isOwner }) => {
   return (
     <div className="profile-photo">
       <img className="profile-photo__image" src={photo || usersImg} alt="" />
-      {isOwner && <UploadPhotoButton errorHandler={errorUploadHandler} successHandler={successUploadHandler} />}
+      {isOwner && (
+        <UploadPhotoButton
+          errorHandler={errorUploadHandler}
+          successHandler={successUploadHandler}
+        />
+      )}
     </div>
   );
 };

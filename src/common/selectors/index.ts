@@ -1,10 +1,15 @@
-export { selectAuth } from './selectors';
+export { selectIsAuth } from './selectors';
+export { selectCaptchaUrl } from './selectors';
+export { selectAuthData } from './selectors';
 export { selectUsers } from './selectors';
 export { selectApp } from './selectors';
 export { selectAuthUserId } from './selectors';
 export { selectAppStatus } from './selectors';
 export { selectAppIsInitialized } from './selectors';
 export { selectProfile } from './selectors';
+export { selectProfilePosts } from './selectors';
 export { selectProfileIsInitialized } from './selectors';
 export { selectProfileData } from './selectors';
 export { selectProfileNotice } from './selectors';
+export { selectDialogs } from './selectors';
+export { selectMessages } from './selectors';

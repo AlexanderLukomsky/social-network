@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import { appPath } from 'common/routesPath';
-import { selectAppStatus, selectAuth } from 'common/selectors';
+import { selectAppStatus, selectIsAuth } from 'common/selectors';
 import { logout } from 'features/login/auth-reducer';
 import { useAppDispatch } from 'redux/redux-store';
 import './header.scss';
@@ -17,7 +17,7 @@ export const Header = () => {
   const location = useLocation();
 
   const appStatus = useSelector(selectAppStatus);
-  const auth = useSelector(selectAuth);
+  const isAuth = useSelector(selectIsAuth);
 
   const getLocationText = (path: string) => {
     switch (path) {
@@ -45,7 +45,7 @@ export const Header = () => {
   return (
     <AppBar className="header">
       <Toolbar>
-        {auth.isAuth ? (
+        {isAuth ? (
           <>
             <Typography variant="h6" component="div">
               {getLocationText(location.pathname)}

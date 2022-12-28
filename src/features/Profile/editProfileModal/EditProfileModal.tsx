@@ -48,7 +48,8 @@ export const EditProfileModal: FC<EditProfileModalPropsType> = ({
     });
     /* eslint-disable no-useless-escape */
     if (github.value !== null) {
-      const re = /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi;
+      const re =
+        /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi;
       if (!re.test(github.value)) {
         github.errorHandler(true);
         isError = false;

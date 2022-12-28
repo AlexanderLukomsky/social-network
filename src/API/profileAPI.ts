@@ -1,7 +1,7 @@
-import { CommonResponseType } from '../common/types/commonTypes';
 import { ProfilePhotosType, ProfileType } from '../common/types/profileTypes';
 
-import { instance } from './instance';
+import { instance } from './instance/instance';
+import { CommonResponseType } from './types/CommonAPITypes';
 
 const plug = {
   LookingForAJobDescriptionL: 'React',
@@ -36,7 +36,9 @@ export const profileAPI = {
 };
 /// * clean
 type UpdateProfileResponseType = CommonResponseType;
-type UpdatePhotoResponseType = { data: { photos: ProfilePhotosType } } & CommonResponseType;
+type UpdatePhotoResponseType = {
+  data: { photos: ProfilePhotosType };
+} & CommonResponseType;
 export type UpdateProfileRequestType = {
   contacts: { github: string | null };
 } & Pick<ProfileType, 'userId' | 'fullName' | 'aboutMe'>;

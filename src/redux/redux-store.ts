@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+// import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AnyAction, combineReducers } from 'redux';
 
 import { appReducer } from '../app/app-reducer';
@@ -18,6 +19,11 @@ const rootReducer = combineReducers({
 export const store = configureStore({ reducer: rootReducer });
 export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
 export type AppRootStoreType = ReturnType<typeof rootReducer>;
-export const useAppSelector: TypedUseSelectorHook<AppRootStoreType> = useSelector;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStoreType, unknown, AnyAction>;
+// export const useAppSelector: TypedUseSelectorHook<AppRootStoreType> = useSelector;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  AppRootStoreType,
+  unknown,
+  AnyAction
+>;
 export type ActionType = AnyAction;

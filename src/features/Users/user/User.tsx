@@ -8,14 +8,14 @@ import { useAppDispatch } from '../../../redux/redux-store';
 import { followThunk, unfollowThunk } from '../user-reducer';
 import './user.scss';
 
-export const User: FC<UserPropsType> = ({ id, name, followed, photos }) => {
+export const User: FC<UserPropsType> = ({ id, name, followed, photos, isAuth }) => {
   const dispatch = useAppDispatch();
 
-  const unfollow = () => {
+  const onUnfollowButtonClick = () => {
     dispatch(unfollowThunk(id));
   };
 
-  const follow = () => {
+  const onFollowButtonClick = () => {
     dispatch(followThunk(id));
   };
 
@@ -25,7 +25,11 @@ export const User: FC<UserPropsType> = ({ id, name, followed, photos }) => {
         <NavLink to={`/profile/${id}`}>
           <img
             className="user__image"
-            src={photos.small || photos.small ? photos.small || photos.small : usersDefaultPhoto}
+            src={
+              photos.small || photos.small
+                ? photos.small || photos.small
+                : usersDefaultPhoto
+            }
             alt="description"
           />
         </NavLink>
@@ -34,11 +38,11 @@ export const User: FC<UserPropsType> = ({ id, name, followed, photos }) => {
       <div className="user__about">
         <div className="user__name">{name}</div>
         {followed ? (
-          <Button color="error" onClick={unfollow}>
+          <Button disabled={!isAuth} color="error" onClick={onUnfollowButtonClick}>
             Отписаться
           </Button>
         ) : (
-          <Button color="success" onClick={follow}>
+          <Button disabled={!isAuth} color="success" onClick={onFollowButtonClick}>
             Подписаться
           </Button>
         )}
@@ -51,4 +55,5 @@ type UserPropsType = {
   name: string;
   followed: boolean;
   photos: { small: null | string; large: null | string };
+  isAuth: boolean;
 };

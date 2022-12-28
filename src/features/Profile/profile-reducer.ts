@@ -4,8 +4,10 @@ import { v1 } from 'uuid';
 import { profileAPI, UpdateProfileRequestType } from '../../api/profileAPI';
 import { setAppStatus } from '../../app/app-reducer';
 import { Nullable } from '../../common/types';
-import { ResultStatus, StatusesTypes } from '../../common/types/commonTypes';
 import { ProfileType } from '../../common/types/profileTypes';
+
+import { ResultStatus } from 'api/types/CommonAPITypes';
+import { StatusesTypes } from 'common/types/commonTypes';
 
 const initialState = {
   data: {} as ProfileType,
@@ -65,14 +67,17 @@ const slice = createSlice({
 export const profileReducer = slice.reducer;
 export const { addNewPost, deletePost, setIsInitialized } = slice.actions;
 
-export const getProfile = createAsyncThunk('profile/get-profile', async (userId: string, { rejectWithValue }) => {
-  try {
-    const res = await profileAPI.getProfile(userId);
-    return res.data;
-  } catch {
-    return rejectWithValue('');
-  }
-});
+export const getProfile = createAsyncThunk(
+  'profile/get-profile',
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const res = await profileAPI.getProfile(userId);
+      return res.data;
+    } catch {
+      return rejectWithValue('');
+    }
+  },
+);
 export const updatePhoto = createAsyncThunk(
   'profile/updatePhoto',
   async (data: FormData, { rejectWithValue, dispatch }) => {
@@ -88,14 +93,17 @@ export const updatePhoto = createAsyncThunk(
   },
 );
 
-export const getProfileStatus = createAsyncThunk('profile/get-status', async (id: string, { rejectWithValue }) => {
-  try {
-    const res = await profileAPI.getStatus(id);
-    return res.data;
-  } catch {
-    return rejectWithValue('');
-  }
-});
+export const getProfileStatus = createAsyncThunk(
+  'profile/get-status',
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const res = await profileAPI.getStatus(id);
+      return res.data;
+    } catch {
+      return rejectWithValue('');
+    }
+  },
+);
 export const updateProfile = createAsyncThunk(
   'profile/update-profile',
   async (profile: UpdateProfileRequestType, { rejectWithValue, dispatch }) => {

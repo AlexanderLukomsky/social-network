@@ -5,7 +5,9 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { appPath } from 'common/routesPath';
 import { Login, Music, News, Profile, Users } from 'features';
 
-const Settings = React.lazy(async () => ({ default: (await import('features')).Settings }));
+const Settings = React.lazy(async () => ({
+  default: (await import('features')).Settings,
+}));
 const Dialogs = React.lazy(async () => ({ default: (await import('features')).Dialogs }));
 export const AppRoutes = () => (
   <Routes>

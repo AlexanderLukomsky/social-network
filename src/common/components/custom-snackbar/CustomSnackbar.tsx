@@ -2,7 +2,11 @@ import React, { FC } from 'react';
 
 import { Alert, Snackbar, Stack } from '@mui/material';
 
-export const CustomSnackbar: FC<CustomSnackbarPropsType> = ({ message, isOpen, onClose }) => {
+export const CustomSnackbar: FC<CustomSnackbarPropsType> = ({
+  message,
+  isOpen,
+  onClose,
+}) => {
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;

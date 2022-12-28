@@ -20,7 +20,6 @@ export function App() {
   useEffect(() => {
     dispatch(initializeApp());
   }, [dispatch]);
-
   return (
     <div className="app">
       <div className="container">

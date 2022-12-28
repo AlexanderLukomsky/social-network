@@ -5,23 +5,48 @@ import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 
 import './loginForm.scss';
-import { LoginRequestType } from '../../../api/authAPI';
+
 import { Captcha } from '../../../common/components/captcha/Captcha';
 
-export const LoginForm: FC<LoginFormPropsType> = ({ onSubmit, captchaUrl, onClose, onChangeCaptcha }) => {
+import { LoginRequestType } from 'api/auth/types/AuthAPITypes';
+
+const email = 'Нажмите кнопку войти';
+const password = 'Нажмите кнопку войти';
+
+export const LoginForm: FC<LoginFormPropsType> = ({
+  onSubmitFormClick,
+  captchaUrl,
+  onCloseCaptchaClick,
+  onGetCaptchaClick,
+}) => {
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email,
+      password,
       rememberMe: false,
     },
     //   validationSchema: validationSchema,
     onSubmit: values => {
-      onSubmit(values);
+      if (values.email === email && values.password === password) {
+        const authData = {
+          email: process.env.REACT_APP_LOGIN as string,
+          password: process.env.REACT_APP_PASSWORD as string,
+          rememberMe: values.rememberMe,
+        };
+        onSubmitFormClick(authData);
+        return;
+      }
+
+      onSubmitFormClick(values);
     },
   });
   return (
-    <Paper elevation={2} component="form" onSubmit={formik.handleSubmit} className="login-form">
+    <Paper
+      elevation={2}
+      component="form"
+      onSubmit={formik.handleSubmit}
+      className="login-form"
+    >
       <h2 className="login-form__title">Авторизация</h2>
       <TextField
         sx={{ mb: 4 }}
@@ -56,15 +81,20 @@ export const LoginForm: FC<LoginFormPropsType> = ({ onSubmit, captchaUrl, onClos
         }
         label="Запомнить"
       />
-      <Button className="login-form__button" color="primary" variant="contained" type="submit">
+      <Button
+        className="login-form__button"
+        color="primary"
+        variant="contained"
+        type="submit"
+      >
         Войти
       </Button>
       {captchaUrl && (
         <Captcha
-          onClose={onClose}
-          onChangeCaptcha={onChangeCaptcha}
-          onSubmit={captcha => {
-            onSubmit({ ...formik.values, captcha });
+          onCloseCaptchaClick={onCloseCaptchaClick}
+          onGetCaptchaClick={onGetCaptchaClick}
+          onSubmitFormClick={captcha => {
+            onSubmitFormClick({ ...formik.values, captcha });
           }}
           captchaUrl={captchaUrl}
         />
@@ -73,8 +103,8 @@ export const LoginForm: FC<LoginFormPropsType> = ({ onSubmit, captchaUrl, onClos
   );
 };
 type LoginFormPropsType = {
-  onSubmit: (formData: LoginRequestType) => void;
+  onSubmitFormClick: (formData: LoginRequestType) => void;
   captchaUrl: string | null;
-  onChangeCaptcha: () => void;
-  onClose: () => void;
+  onGetCaptchaClick: () => void;
+  onCloseCaptchaClick: () => void;
 };
