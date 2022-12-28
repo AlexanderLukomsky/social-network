@@ -6,9 +6,18 @@ import { NavLink } from 'react-router-dom';
 import usersDefaultPhoto from '../../../common/assets/usersImg.jpg';
 import { useAppDispatch } from '../../../redux/redux-store';
 import { followThunk, unfollowThunk } from '../user-reducer';
-import './user.scss';
 
-export const User: FC<UserPropsType> = ({ id, name, followed, photos, isAuth }) => {
+import './user.scss';
+import { StatusesTypes } from 'common/types/commonTypes';
+
+export const User: FC<UserPropsType> = ({
+  id,
+  name,
+  followed,
+  photos,
+  isAuth,
+  followedStatus,
+}) => {
   const dispatch = useAppDispatch();
 
   const onUnfollowButtonClick = () => {
@@ -36,13 +45,24 @@ export const User: FC<UserPropsType> = ({ id, name, followed, photos, isAuth }) 
       </div>
 
       <div className="user__about">
-        <div className="user__name">{name}</div>
+        <NavLink className="user__name" to={`/profile/${id}`}>
+          {name}
+        </NavLink>
+
         {followed ? (
-          <Button disabled={!isAuth} color="error" onClick={onUnfollowButtonClick}>
+          <Button
+            disabled={!isAuth || followedStatus === 'pending'}
+            color="error"
+            onClick={onUnfollowButtonClick}
+          >
             Отписаться
           </Button>
         ) : (
-          <Button disabled={!isAuth} color="success" onClick={onFollowButtonClick}>
+          <Button
+            disabled={!isAuth || followedStatus === 'pending'}
+            color="success"
+            onClick={onFollowButtonClick}
+          >
             Подписаться
           </Button>
         )}
@@ -56,4 +76,5 @@ type UserPropsType = {
   followed: boolean;
   photos: { small: null | string; large: null | string };
   isAuth: boolean;
+  followedStatus: StatusesTypes;
 };

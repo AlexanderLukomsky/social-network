@@ -23,3 +23,7 @@ export const selectProfileNotice = (state: AppRootStoreType) => state.profile.no
 
 export const selectDialogs = (state: AppRootStoreType) => state.dialogsPage.dialogs;
 export const selectMessages = (state: AppRootStoreType) => state.dialogsPage.messages;
+
+export const selectUsersLoadingStatus = (state: AppRootStoreType) => state.users.status;
+export const selectFollowedStatus = (state: AppRootStoreType) =>
+  state.users.followedStatus;

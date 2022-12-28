@@ -13,3 +13,5 @@ export { selectProfileData } from './selectors';
 export { selectProfileNotice } from './selectors';
 export { selectDialogs } from './selectors';
 export { selectMessages } from './selectors';
+export { selectUsersLoadingStatus } from './selectors';
+export { selectFollowedStatus } from './selectors';

@@ -7,6 +7,7 @@ export const UsersPagination: FC<UsersPaginationPropsType> = ({
   totalUsersCount,
   pageSize,
   page,
+  disabled,
   onChange,
 }) => {
   const totalPagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -18,6 +19,7 @@ export const UsersPagination: FC<UsersPaginationPropsType> = ({
   return (
     <div className="users-pagination">
       <Pagination
+        disabled={disabled}
         onChange={onChangeHandler}
         page={page}
         count={totalPagesCount}
@@ -28,6 +30,7 @@ export const UsersPagination: FC<UsersPaginationPropsType> = ({
   );
 };
 type UsersPaginationPropsType = {
+  disabled: boolean;
   totalUsersCount: number;
   pageSize: number;
   page: number;

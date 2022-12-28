@@ -1,10 +1,11 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
 
 import { usersAPI } from '../../api/userApi';
 import { UserType } from '../../common/types/userTypes';
 import { AppRootStoreType } from '../../redux/redux-store';
 
 import { ResultStatus } from 'api/types/CommonAPITypes';
+import { StatusesTypes } from 'common/types/commonTypes';
 
 const initialState = {
   data: [] as UserType[],
@@ -12,24 +13,26 @@ const initialState = {
   pageSize: 5,
   totalCount: 0,
   error: null,
-  requestPage: 1,
+  followedStatus: 'idle' as StatusesTypes,
+  status: 'idle' as StatusesTypes,
 };
 const slice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    requestChangePage: (state, action: PayloadAction<number>) => {
-      state.requestPage = action.payload;
+    changePage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
     },
   },
   extraReducers: builder => {
     builder
       .addCase(getUsersThunk.fulfilled, (state, action) => {
+        state.status = 'succeeded';
         state.data = action.payload.items;
         state.totalCount = action.payload.totalCount;
-        state.page = state.requestPage;
       })
       .addCase(followThunk.fulfilled, (state, action) => {
+        state.followedStatus = 'succeeded';
         if (action.payload.resultCode === ResultStatus.OK) {
           const user = state.data.find(u => u.id === action.payload.userID);
           if (user) {
@@ -38,18 +41,31 @@ const slice = createSlice({
         }
       })
       .addCase(unfollowThunk.fulfilled, (state, action) => {
+        state.followedStatus = 'succeeded';
         if (action.payload.resultCode === ResultStatus.OK) {
           const user = state.data.find(u => u.id === action.payload.userID);
           if (user) {
             user.followed = false;
           }
         }
+      })
+      .addCase(getUsersThunk.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(getUsersThunk.rejected, state => {
+        state.status = 'failed';
       });
+    builder.addMatcher(isAnyOf(followThunk.pending, unfollowThunk.pending), state => {
+      state.followedStatus = 'pending';
+    });
+    builder.addMatcher(isAnyOf(followThunk.rejected, unfollowThunk.rejected), state => {
+      state.followedStatus = 'failed';
+    });
   },
 });
 
 export const usersReducer = slice.reducer;
-export const { requestChangePage } = slice.actions;
+export const { changePage } = slice.actions;
 
 export const getUsersThunk = createAsyncThunk(
   'users/getUsers',
@@ -58,6 +74,7 @@ export const getUsersThunk = createAsyncThunk(
     const params = { currentPage: users.page, pageSize: users.pageSize };
     try {
       const res = await usersAPI.getUsers(params);
+
       return res.data;
     } catch {
       return rejectWithValue('');
