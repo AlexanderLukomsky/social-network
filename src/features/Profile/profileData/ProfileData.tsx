@@ -34,15 +34,15 @@ export const ProfileData: FC<ProfileDataPropsType> = ({ isOwner }) => {
     mainLink,
   });
 
-  const onCloseModalHandler = () => {
+  const onCloseModalHandler = (): void => {
     setIsOpenModal(false);
   };
 
-  const onOpenModalHandler = () => {
+  const onOpenModalHandler = (): void => {
     setIsOpenModal(true);
   };
 
-  const onSubmitHandler = async () => {
+  const onSubmitHandler = async (): Promise<void> => {
     const newContacts = {
       github: contacts.github ? contacts.github.trim() : null,
       website: contacts.website ? contacts.website.trim() : null,
@@ -55,6 +55,7 @@ export const ProfileData: FC<ProfileDataPropsType> = ({ isOwner }) => {
       userId: authId,
     };
     const action = await dispatch(updateProfile(newData));
+
     if (updateProfile.fulfilled.match(action)) {
       setIsOpenModal(false);
     }
@@ -64,9 +65,11 @@ export const ProfileData: FC<ProfileDataPropsType> = ({ isOwner }) => {
     return <CustomProgress />;
   }
   const profileLinksProps: ProfileLinkPropsType = {};
+
   if (github) profileLinksProps.github = { path: github, title: 'Github' };
   if (website) profileLinksProps.website = { path: website, title: 'Portfolio' };
   if (mainLink) profileLinksProps.mainLink = { path: mainLink, title: mainLink };
+
   return (
     <Paper elevation={3} className="profile-data">
       <ProfilePhoto photo={data.photos.large} isOwner={isOwner} />

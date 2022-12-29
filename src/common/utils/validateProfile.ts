@@ -2,7 +2,9 @@
 
 import { Nullable } from 'common/types';
 
-export const validateProfile = (data: DataType) => {
+export const validateProfile = (
+  data: DataType,
+): Partial<Record<keyof typeof data, boolean>> => {
   const errors: any = {};
 
   const keys = Object.keys(data) as (keyof typeof data)[];
@@ -12,6 +14,7 @@ export const validateProfile = (data: DataType) => {
       const sitePattern =
         /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi;
       const value = data[key];
+
       if (typeof value === 'string' && value.trim()) {
         if (!sitePattern.test(value)) {
           errors[key] = true;
@@ -21,6 +24,7 @@ export const validateProfile = (data: DataType) => {
     if (key === 'mainLink') {
       const pattern = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
       const value = data[key];
+
       if (typeof value === 'string' && value.trim()) {
         if (!pattern.test(value)) {
           errors[key] = true;

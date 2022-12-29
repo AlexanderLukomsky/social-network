@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, FC, ChangeEvent } from 'react';
 
 import Button from '@mui/material/Button';
@@ -21,35 +22,38 @@ export const EditProfileModal: FC<EditProfileModalPropsType> = ({
 }) => {
   const [errors, setErrors] = useState<Partial<ErrorsType>>({});
 
-  const onChangeFullNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeFullNameHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setErrors(state => ({ ...state, fullName: false }));
     onChangeFullName(e.currentTarget.value);
   };
 
-  const onChangeAboutMeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeAboutMeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setErrors(state => ({ ...state, aboutMe: false }));
     onChangeAboutMe(e.currentTarget.value);
   };
 
-  const handleGitChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleGitChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setErrors(state => ({ ...state, github: false }));
     const github = e.currentTarget.value;
+
     onChangeContacts({ ...contacts, github });
   };
 
-  const handleWebsiteChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleWebsiteChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setErrors(state => ({ ...state, website: false }));
     const website = e.currentTarget.value;
+
     onChangeContacts({ ...contacts, website });
   };
 
-  const handleMainChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleMainChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setErrors(state => ({ ...state, mainLink: false }));
     const mainLink = e.currentTarget.value;
+
     onChangeContacts({ ...contacts, mainLink });
   };
 
-  const handleSubmitClick = () => {
+  const handleSubmitClick = (): void => {
     const data = {
       fullName,
       aboutMe,
@@ -61,12 +65,13 @@ export const EditProfileModal: FC<EditProfileModalPropsType> = ({
 
     if (Object.keys(validationErrors).length) {
       setErrors(validationErrors);
+
       return;
     }
     onSubmit();
   };
 
-  const onCancelHandler = () => {
+  const onCancelHandler = (): void => {
     onClose();
   };
 
