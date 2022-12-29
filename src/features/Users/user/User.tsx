@@ -20,11 +20,11 @@ export const User: FC<UserPropsType> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const onUnfollowButtonClick = () => {
+  const onUnfollowButtonClick = (): void => {
     dispatch(unfollowThunk(id));
   };
 
-  const onFollowButtonClick = () => {
+  const onFollowButtonClick = (): void => {
     dispatch(followThunk(id));
   };
 

@@ -11,20 +11,20 @@ import { LoginForm } from './loogin-form/LoginForm';
 import { LoginRequestType } from 'api/auth/types/AuthAPITypes';
 import { selectCaptchaUrl, selectIsAuth } from 'common/selectors';
 
-export const Login = () => {
+export const Login = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const isAuth = useSelector(selectIsAuth);
   const captchaUrl = useSelector(selectCaptchaUrl);
-  const handleSubmitFormClick = async (formData: LoginRequestType) => {
+  const handleSubmitFormClick = async (formData: LoginRequestType): Promise<void> => {
     dispatch(login(formData));
   };
 
-  const handleGetCaptchaClick = () => {
+  const handleGetCaptchaClick = (): void => {
     dispatch(getCaptchaUrl());
   };
 
-  const handleCloseCaptchaClick = () => {
+  const handleCloseCaptchaClick = (): void => {
     dispatch(setCaptchaUrl(null));
   };
 

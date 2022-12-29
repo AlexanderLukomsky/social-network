@@ -12,7 +12,7 @@ import { StatusesTypes } from 'common/types/commonTypes';
 const initialState = {
   data: {} as ProfileType,
   profileStatus: null as Nullable<string>,
-  isInitialized: false,
+  isInitialized: false as boolean,
   posts: [
     { id: v1(), message: 'first post', likesCount: 5 },
     { id: v1(), message: 'second post', likesCount: 8 },
@@ -62,6 +62,7 @@ const slice = createSlice({
       });
   },
 });
+
 export const profileReducer = slice.reducer;
 export const { addNewPost, deletePost, setIsInitialized } = slice.actions;
 
@@ -70,6 +71,7 @@ export const getProfile = createAsyncThunk(
   async (userId: string, { rejectWithValue }) => {
     try {
       const res = await profileAPI.getProfile(userId);
+
       return res.data;
     } catch {
       return rejectWithValue('');
@@ -82,6 +84,7 @@ export const updatePhoto = createAsyncThunk(
     dispatch(setAppStatus('pending'));
     try {
       const res = await profileAPI.updatePhoto(data);
+
       return res.data;
     } catch {
       return rejectWithValue('');
@@ -96,6 +99,7 @@ export const getProfileStatus = createAsyncThunk(
   async (id: string, { rejectWithValue }) => {
     try {
       const res = await profileAPI.getStatus(id);
+
       return res.data;
     } catch {
       return rejectWithValue('');
@@ -107,16 +111,22 @@ export const updateProfile = createAsyncThunk(
   async (profile: UpdateProfileRequestType, { rejectWithValue, dispatch }) => {
     try {
       const res = await profileAPI.updateProfile(profile);
+
       if (res.data.resultCode === ResultStatus.OK) {
         dispatch(getProfile(profile.userId.toString()));
+
         return res.data;
       }
       if (res.data.resultCode === ResultStatus.FAILED) {
         return rejectWithValue('');
       }
+
       return res.data;
     } catch {
       return rejectWithValue('');
     }
   },
 );
+
+export type PostType = { id: string; message: string; likesCount: number };
+export type ProfileStateType = typeof initialState;

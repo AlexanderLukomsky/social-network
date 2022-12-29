@@ -33,13 +33,16 @@ export const LoginForm: FC<LoginFormPropsType> = ({
           password: process.env.REACT_APP_PASSWORD as string,
           rememberMe: values.rememberMe,
         };
+
         onSubmitFormClick(authData);
+
         return;
       }
 
       onSubmitFormClick(values);
     },
   });
+
   return (
     <Paper
       elevation={2}

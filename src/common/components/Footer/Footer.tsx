@@ -1,1 +1,1 @@
-export const Footer = () => <footer className="footer" />;
+export const Footer = (): JSX.Element => <footer className="footer" />;

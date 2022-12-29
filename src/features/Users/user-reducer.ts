@@ -35,6 +35,7 @@ const slice = createSlice({
         state.followedStatus = 'succeeded';
         if (action.payload.resultCode === ResultStatus.OK) {
           const user = state.data.find(u => u.id === action.payload.userID);
+
           if (user) {
             user.followed = true;
           }
@@ -44,6 +45,7 @@ const slice = createSlice({
         state.followedStatus = 'succeeded';
         if (action.payload.resultCode === ResultStatus.OK) {
           const user = state.data.find(u => u.id === action.payload.userID);
+
           if (user) {
             user.followed = false;
           }
@@ -72,6 +74,7 @@ export const getUsersThunk = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     const { users } = getState() as AppRootStoreType;
     const params = { currentPage: users.page, pageSize: users.pageSize };
+
     try {
       const res = await usersAPI.getUsers(params);
 
@@ -86,6 +89,7 @@ export const followThunk = createAsyncThunk(
   async (userID: number, { rejectWithValue }) => {
     try {
       const res = await usersAPI.follow(userID);
+
       return { userID, resultCode: res.data.resultCode };
     } catch {
       return rejectWithValue('');
@@ -97,9 +101,12 @@ export const unfollowThunk = createAsyncThunk(
   async (userID: number, { rejectWithValue }) => {
     try {
       const res = await usersAPI.unFollow(userID);
+
       return { userID, resultCode: res.data.resultCode };
     } catch {
       return rejectWithValue('');
     }
   },
 );
+
+export type UsersType = typeof initialState;

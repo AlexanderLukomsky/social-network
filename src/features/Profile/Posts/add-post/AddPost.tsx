@@ -8,24 +8,29 @@ import s from '../posts.module.scss';
 import { addNewPost } from 'features/profile/profile-reducer';
 import { useAppDispatch } from 'redux/redux-store';
 
-export const AddPost = () => {
+export const AddPost = (): JSX.Element => {
   const [post, setPost] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const handleButtonClick = () => {
+  const handleButtonClick = (): void => {
     if (!post.trim()) {
       setError(true);
+
       return;
     }
     dispatch(addNewPost(post));
     setPost('');
   };
 
-  const handlePostChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const handlePostChange = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ): void => {
     setError(false);
     const { value } = e.currentTarget;
+
     setPost(value);
   };
+
   return (
     <div className={s.new_post}>
       <TextField

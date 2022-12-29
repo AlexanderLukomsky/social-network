@@ -1,1 +1,1 @@
-export const News = () => <div>News</div>;
+export const News = (): JSX.Element => <div>News</div>;

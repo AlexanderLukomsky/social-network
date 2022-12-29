@@ -8,14 +8,16 @@ export const UploadPhotoButton: FC<UploadPhotoButtonPropsType> = ({
   errorHandler,
   successHandler,
 }) => {
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files && e.target.files.length) {
       const photo = e.target.files[0];
       const converterPhoto = URL.createObjectURL(photo);
       const image = new Image();
+
       image.src = converterPhoto;
       image.onload = () => {
         const formData = new FormData();
+
         formData.append('photo', photo);
         successHandler(formData);
       };
@@ -24,6 +26,7 @@ export const UploadPhotoButton: FC<UploadPhotoButtonPropsType> = ({
       };
     }
   };
+
   return (
     <div className="upload-button">
       <IconButton color="secondary" aria-label="upload picture" component="label">

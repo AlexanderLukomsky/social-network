@@ -7,7 +7,7 @@ export const CustomSnackbar: FC<CustomSnackbarPropsType> = ({
   isOpen,
   onClose,
 }) => {
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string): void => {
     if (reason === 'clickaway') {
       return;
     }

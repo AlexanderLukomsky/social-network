@@ -9,6 +9,7 @@ const plug = {
   LookingForAJobDescriptionL: 'React',
   LookingForAJobDescription: true,
 };
+
 export const profileAPI = {
   getProfile(userId: string) {
     return instance.get<ProfileType>(`profile/${userId || '19615'}`);

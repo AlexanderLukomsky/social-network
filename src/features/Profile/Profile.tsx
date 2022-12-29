@@ -19,7 +19,7 @@ import {
 import { useAppDispatch } from 'redux/redux-store';
 import './profile.scss';
 
-export const Profile = () => {
+export const Profile = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const { userId } = useParams<{ userId: string }>();
@@ -39,6 +39,7 @@ export const Profile = () => {
       dispatch(getProfile(authData.id.toString()));
       dispatch(getProfileStatus(authData.id.toString()));
     }
+
     return () => {
       dispatch(setIsInitialized(false));
     };

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { appPath } from 'common/routesPath';
 
-export const Navigation = () => (
+export const Navigation = (): JSX.Element => (
   <ul className="nav-list">
     <li className="nav-list__item">
       <Button component={NavLink} to={appPath.PROFILE} variant="contained">

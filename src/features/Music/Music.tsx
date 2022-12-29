@@ -1,1 +1,1 @@
-export const Music = () => <div>Music</div>;
+export const Music = (): JSX.Element => <div>Music</div>;

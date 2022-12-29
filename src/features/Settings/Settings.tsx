@@ -1,1 +1,1 @@
-export const Settings = () => <div>Settings</div>;
+export const Settings = (): JSX.Element => <div>Settings</div>;

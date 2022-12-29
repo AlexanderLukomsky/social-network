@@ -34,10 +34,12 @@ const dialogsPage: DialogsPageType = {
     { id: v1(), message: 'Message 4' },
   ],
 };
+
 export const dialogsReducer = (
+  // eslint-disable-next-line default-param-last
   state: DialogsPageType = dialogsPage,
   action: DialogsActionType,
-) => {
+): DialogsPageType => {
   switch (action.type) {
     case 'ADD-MESSAGE':
       return {

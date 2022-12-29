@@ -7,8 +7,9 @@ import s from './posts.module.scss';
 
 import { selectProfilePosts } from 'common/selectors';
 
-export const Posts = () => {
+export const Posts = (): JSX.Element => {
   const posts = useSelector(selectProfilePosts);
+
   return (
     <div>
       <AddPost />

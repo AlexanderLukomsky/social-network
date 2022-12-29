@@ -12,7 +12,7 @@ export const UsersPagination: FC<UsersPaginationPropsType> = ({
 }) => {
   const totalPagesCount = Math.ceil(totalUsersCount / pageSize);
 
-  const onChangeHandler = (event: ChangeEvent<unknown>, currentPage: number) => {
+  const onChangeHandler = (event: ChangeEvent<unknown>, currentPage: number): void => {
     onChange(currentPage);
   };
 

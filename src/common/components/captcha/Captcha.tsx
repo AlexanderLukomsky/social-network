@@ -14,7 +14,7 @@ export const Captcha: FC<CaptchaPropsType> = ({
 }) => {
   const { value, onInputChange } = useInputHook();
 
-  const onSubmitButtonClick = () => {
+  const onSubmitButtonClick = (): void => {
     onSubmitFormClick(value);
   };
 

@@ -5,7 +5,7 @@ import { EMPTY_STRING } from 'common/constants';
 export const useInputHook = (): UseInputHookType => {
   const [value, setValue] = useState(EMPTY_STRING);
 
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setValue(event.currentTarget.value);
   };
 

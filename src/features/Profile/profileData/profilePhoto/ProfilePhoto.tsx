@@ -9,11 +9,11 @@ import './profilePhoto.scss';
 export const ProfilePhoto: FC<ProfilePhotoPropsType> = ({ photo, isOwner }) => {
   const dispatch = useAppDispatch();
 
-  const successUploadHandler = (data: FormData) => {
+  const successUploadHandler = (data: FormData): void => {
     dispatch(updatePhoto(data));
   };
 
-  const errorUploadHandler = () => {
+  const errorUploadHandler = (): void => {
     console.warn('error');
   };
 

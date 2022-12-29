@@ -9,7 +9,8 @@ const Settings = React.lazy(async () => ({
   default: (await import('features')).Settings,
 }));
 const Dialogs = React.lazy(async () => ({ default: (await import('features')).Dialogs }));
-export const AppRoutes = () => (
+
+export const AppRoutes = (): JSX.Element => (
   <Routes>
     <Route path={`${appPath.PROFILE}/:userId`} element={<Profile />} />
     <Route path={appPath.PROFILE} element={<Profile />} />

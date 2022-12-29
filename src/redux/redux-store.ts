@@ -16,8 +16,10 @@ const rootReducer = combineReducers({
   users: usersReducer,
   auth: authReducer,
 });
+
 export const store = configureStore({ reducer: rootReducer });
-export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
 export type AppRootStoreType = ReturnType<typeof rootReducer>;
 // export const useAppSelector: TypedUseSelectorHook<AppRootStoreType> = useSelector;
 export type AppThunk<ReturnType = void> = ThunkAction<

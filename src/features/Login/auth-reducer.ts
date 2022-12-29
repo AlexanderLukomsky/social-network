@@ -43,6 +43,7 @@ const slice = createSlice({
       });
   },
 });
+
 export const authReducer = slice.reducer;
 export const { setAuthUserData, setCaptchaUrl } = slice.actions;
 
@@ -53,6 +54,7 @@ export const authMe = createAsyncThunk<
 >('auth/me', async (_, { rejectWithValue }) => {
   try {
     const res = await auth.me();
+
     return res.data;
   } catch {
     return rejectWithValue('Some Error');
@@ -61,6 +63,7 @@ export const authMe = createAsyncThunk<
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
     const res = await auth.logout();
+
     return res.data.data;
   } catch {
     return rejectWithValue('');
@@ -71,6 +74,7 @@ export const login = createAsyncThunk<unknown, LoginRequestType, { rejectValue: 
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const res = await auth.login(data);
+
       if (res.data.resultCode === ResultStatus.OK) {
         dispatch(authMe());
       } else if (res.data.resultCode === ResultStatus.ANTIBOTCAPTCHA) {
@@ -83,5 +87,6 @@ export const login = createAsyncThunk<unknown, LoginRequestType, { rejectValue: 
 );
 export const getCaptchaUrl = createAsyncThunk('auth/get-captcha', async () => {
   const res = await captcha.getCaptcha();
+
   return res.data;
 });

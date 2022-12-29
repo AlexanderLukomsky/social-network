@@ -11,7 +11,7 @@ import { logout } from 'features/login/auth-reducer';
 import { useAppDispatch } from 'redux/redux-store';
 import './header.scss';
 
-export const Header = () => {
+export const Header = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const location = useLocation();
@@ -19,7 +19,7 @@ export const Header = () => {
   const appStatus = useSelector(selectAppStatus);
   const isAuth = useSelector(selectIsAuth);
 
-  const getLocationText = (path: string) => {
+  const getLocationText = (path: string): string => {
     switch (path) {
       case appPath.PROFILE:
         return 'Профиль';
@@ -38,7 +38,7 @@ export const Header = () => {
     }
   };
 
-  const logoutHandler = () => {
+  const logoutHandler = (): void => {
     dispatch(logout());
   };
 

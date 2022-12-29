@@ -17,24 +17,26 @@ import {
   selectUsersLoadingStatus,
 } from 'common/selectors';
 
-export const Users = () => {
+export const Users = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const usersLoadingStatus = useSelector(selectUsersLoadingStatus);
   const followedStatus = useSelector(selectFollowedStatus);
   const users = useSelector(selectUsers);
   const isAuth = useSelector(selectIsAuth);
+
   useEffect(() => {
     dispatch(getUsersThunk());
-  }, [users.page]);
+  }, [users.page, dispatch]);
 
-  const onChangePage = (page: number) => {
+  const onChangePage = (page: number): void => {
     dispatch(changePage(page));
   };
 
   // eslint-disable-next-line no-undef
   const skeletons: JSX.Element[] = [];
-  // eslint-disable-next-line no-magic-numbers
+
+  // eslint-disable-next-line no-magic-numbers, no-plusplus
   for (let i = 0; i < users.pageSize; i++) {
     skeletons.push(
       <Skeleton

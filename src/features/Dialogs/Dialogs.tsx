@@ -7,11 +7,13 @@ import { DialogItem } from './dialog/Dialog';
 import { appPath } from 'common/routesPath';
 import { selectDialogs, selectIsAuth, selectMessages } from 'common/selectors';
 
-export const Dialogs = () => {
+export const Dialogs = (): JSX.Element => {
   const dialogs = useSelector(selectDialogs);
   const messages = useSelector(selectMessages);
   const isAuth = useSelector(selectIsAuth);
+
   if (!isAuth) return <Navigate to={appPath.LOGIN} />;
+
   return (
     <div className="dialogs">
       <div className="dialogs__columns">

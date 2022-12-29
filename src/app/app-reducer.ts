@@ -6,12 +6,13 @@ import { auth } from 'api/auth';
 import { ResultStatus } from 'api/types/CommonAPITypes';
 import { StatusesTypes } from 'common/types/commonTypes';
 
+const initialState = {
+  appStatus: 'idle' as StatusesTypes,
+  isInitialized: false,
+};
 const slice = createSlice({
   name: 'app',
-  initialState: {
-    appStatus: 'idle' as StatusesTypes,
-    isInitialized: false,
-  },
+  initialState,
   reducers: {
     setAppStatus: (state, action: PayloadAction<StatusesTypes>) => {
       state.appStatus = action.payload;
@@ -40,12 +41,16 @@ export const initializeApp = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const res = await auth.me();
+
       if (res.data.resultCode === ResultStatus.OK) {
         dispatch(setAuthUserData(res.data.data));
       }
+
       return res.data.data;
     } catch (e) {
       return rejectWithValue('');
     }
   },
 );
+
+export type AppStateType = typeof initialState;

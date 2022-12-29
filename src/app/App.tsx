@@ -12,7 +12,7 @@ import './app.scss';
 import { selectAppIsInitialized } from 'common/selectors';
 import { Sidebar } from 'features';
 
-export function App() {
+export const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const isInitialized = useSelector(selectAppIsInitialized);
@@ -20,6 +20,7 @@ export function App() {
   useEffect(() => {
     dispatch(initializeApp());
   }, [dispatch]);
+
   return (
     <div className="app">
       <div className="container">
@@ -34,4 +35,4 @@ export function App() {
       </div>
     </div>
   );
-}
+};
