@@ -15,3 +15,4 @@ export { selectDialogsUsers } from './selectors';
 export { selectMessages } from './selectors';
 export { selectUsersLoadingStatus } from './selectors';
 export { selectFollowedStatus } from './selectors';
+export { selectFirstDialogId } from './selectors';

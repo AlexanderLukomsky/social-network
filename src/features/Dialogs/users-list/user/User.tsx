@@ -1,22 +1,36 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-magic-numbers */
 import { FC, useState } from 'react';
 
 import { Paper } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 import './user.scss';
 import { appPath } from 'common/routesPath';
 
 export const User: FC<UserPropsType> = ({ img, title, id }): JSX.Element => {
   const [isHovered, setIsHovered] = useState(false);
+  const params = useParams<{ id: string | undefined }>();
+  const activeClassName = params.id === id && ' active';
+  const hoveredClassName = isHovered ? ' active' : ' init';
 
   return (
-    <Paper className={`dialog-user${isHovered ? ' active' : ' init'}`} elevation={2}>
+    <Paper
+      className={`dialog-user${activeClassName || hoveredClassName}`}
+      elevation={activeClassName ? 5 : 2}
+    >
       <NavLink
         onMouseEnter={() => {
+          if (activeClassName) {
+            return;
+          }
+
           setIsHovered(true);
         }}
         onMouseLeave={() => {
+          if (activeClassName) {
+            return;
+          }
+
           setIsHovered(false);
         }}
         className="dialog-user__link"

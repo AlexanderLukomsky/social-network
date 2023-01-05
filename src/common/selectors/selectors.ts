@@ -45,3 +45,11 @@ export const selectUsersLoadingStatus = (state: AppRootStoreType): StatusesTypes
   state.users.status;
 export const selectFollowedStatus = (state: AppRootStoreType): StatusesTypes =>
   state.users.followedStatus;
+
+export const selectFirstDialogId = (state: AppRootStoreType): Nullable<string> => {
+  const keys = Object.keys(state.dialogsPage.messages);
+
+  if (keys.length) return keys[0];
+
+  return null;
+};
