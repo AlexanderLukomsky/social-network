@@ -1,6 +1,8 @@
-export type DialogsType = { id: string; name: string; img: string };
-export type MessagesType = { id: string; message: string };
+export type DialogUserType = { id: string; name: string; img: string };
+export type MessagesType = {
+  [key: string]: { id: string; message: string; userId: string }[];
+};
 export type DialogsPageType = {
-  dialogs: DialogsType[];
-  messages: MessagesType[];
+  users: DialogUserType[];
+  messages: MessagesType;
 };

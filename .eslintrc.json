@@ -70,7 +70,7 @@
     ],
     "camelcase": "off",
     "no-shadow": "off",
-    "no-debugger": "error",
+    "no-debugger": "warn",
     "no-unused-vars": "off",
     "no-underscore-dangle": "off",
     "no-magic-numbers": [

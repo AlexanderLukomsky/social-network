@@ -1,0 +1,8 @@
+$item-width: 200px;
+.dialogs-users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: $item-width;
+  width: 100%;
+}

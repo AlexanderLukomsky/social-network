@@ -4,7 +4,7 @@ import { Nullable } from '../types/Nullable';
 import { AuthUserDataType } from 'api/auth/types/AuthAPITypes';
 import { AppStateType } from 'app/app-reducer';
 import { ProfileType } from 'common/types/profileTypes';
-import { DialogsType, MessagesType } from 'common/types/StateType';
+import { DialogUserType, MessagesType } from 'common/types/StateType';
 import { PostType, ProfileStateType } from 'features/profile/profile-reducer';
 import { UsersType } from 'features/users/user-reducer';
 import { AppRootStoreType } from 'redux/redux-store';
@@ -36,9 +36,9 @@ export const selectProfileNotice = (state: AppRootStoreType): string =>
 
 // dialogs
 
-export const selectDialogs = (state: AppRootStoreType): DialogsType[] =>
-  state.dialogsPage.dialogs;
-export const selectMessages = (state: AppRootStoreType): MessagesType[] =>
+export const selectDialogsUsers = (state: AppRootStoreType): DialogUserType[] =>
+  state.dialogsPage.users;
+export const selectMessages = (state: AppRootStoreType): MessagesType =>
   state.dialogsPage.messages;
 
 export const selectUsersLoadingStatus = (state: AppRootStoreType): StatusesTypes =>

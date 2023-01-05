@@ -15,7 +15,15 @@ export const AppRoutes = (): JSX.Element => (
     <Route path={`${appPath.PROFILE}/:userId`} element={<Profile />} />
     <Route path={appPath.PROFILE} element={<Profile />} />
     <Route
-      path={appPath.DIALOGS}
+      path={`${appPath.DIALOGS}`}
+      element={
+        <React.Suspense fallback={<div>loading...</div>}>
+          <Dialogs />
+        </React.Suspense>
+      }
+    />
+    <Route
+      path={`${appPath.DIALOGS}/:id`}
       element={
         <React.Suspense fallback={<div>loading...</div>}>
           <Dialogs />

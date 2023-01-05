@@ -1,0 +1,9 @@
+.dialogs {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  &__messages {
+    padding: 3px 10px;
+    width: 100%;
+  }
+}

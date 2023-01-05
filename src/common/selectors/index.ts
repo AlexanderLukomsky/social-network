@@ -11,7 +11,7 @@ export { selectProfilePosts } from './selectors';
 export { selectProfileIsInitialized } from './selectors';
 export { selectProfileData } from './selectors';
 export { selectProfileNotice } from './selectors';
-export { selectDialogs } from './selectors';
+export { selectDialogsUsers } from './selectors';
 export { selectMessages } from './selectors';
 export { selectUsersLoadingStatus } from './selectors';
 export { selectFollowedStatus } from './selectors';
