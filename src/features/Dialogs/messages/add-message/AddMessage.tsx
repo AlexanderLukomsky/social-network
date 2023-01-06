@@ -15,6 +15,11 @@ export const AddMessage: FC<AddMessagePropsType> = ({ dialogId, userId }) => {
   const fieldRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    setError(false);
+    setValue(value.trim());
+  }, [dialogId]);
+
+  useEffect(() => {
     if (fieldRef.current) {
       fieldRef.current.scrollTop = fieldRef.current.scrollHeight;
     }
