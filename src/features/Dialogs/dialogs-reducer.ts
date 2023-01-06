@@ -72,9 +72,9 @@ export const dialogsReducer = (
         ...state,
         messages: {
           ...state.messages,
-          [action.payload.id]: [
+          [action.payload.dialogId]: [
+            ...state.messages[action.payload.dialogId],
             { id: v1(), message: action.payload.message, userId: action.payload.userId },
-            ...state.messages.id,
           ],
         },
       };
@@ -91,6 +91,6 @@ export const addMessageAC = (payload: AddMessagePayload) =>
 
 type AddMessagePayload = {
   message: string;
-  id: string;
+  dialogId: string;
   userId: string;
 };

@@ -1,0 +1,8 @@
+.add-message {
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+  &__input {
+    width: 100%;
+  }
+}
